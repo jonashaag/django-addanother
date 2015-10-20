@@ -295,3 +295,6 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+sys.path.append(os.path.dirname(__file__))
+os.environ['DJANGO_SETTINGS_MODULE'] = "django_settings"
