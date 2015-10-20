@@ -11,7 +11,7 @@ setup(
     packages=['django_addanother'],
     zip_safe=False,
     url='https://github.com/jonashaag/django-addanother',
-    description='TODO',
+    description='"Add another" buttons outside the Django admin',
     classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: ISC License (ISCL)",
