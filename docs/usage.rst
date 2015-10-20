@@ -5,7 +5,18 @@ How to Use
 
 1. Add the *add another* button
 -------------------------------
-Replace the widget of the form field you want to show the *add another* button next to with the widgets provided by django-addanother. TODO API
+Replace the widget of the form field you want to show the *add another* button next to with the widgets provided by django-addanother:
+
++----------------------------------------------+--------------------------------------------------------------+
+| Stock widget                                 | django-addanother widget                                     |
++==============================================+==============================================================+
+| :class:`~django.forms.Select`                | :class:`~django_addanother.widgets.SelectAddAnother`         |
+| (:class:`~django.db.models.ForeignKey`)      |                                                              |
++----------------------------------------------+--------------------------------------------------------------+
+| :class:`~django.forms.SelectMultiple`        | :class:`~django_addanother.widgets.SelectMultipleAddAnother` |
+| (:class:`~django.db.models.ManyToManyField`) |                                                              |
++----------------------------------------------+--------------------------------------------------------------+
+
 
 For example, let's say we want to add *add another* buttons to a model form::
 

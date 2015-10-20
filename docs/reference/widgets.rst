@@ -1,4 +1,7 @@
 Widgets Reference
 =================
-.. automodule:: django_addanother.widgets
+.. currentmodule:: django_addanother.widgets
+.. autoclass:: SelectAddAnother
+.. autoclass:: SelectMultipleAddAnother
+.. autoclass:: AddAnotherMixin
   :members:
