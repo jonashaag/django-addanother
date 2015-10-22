@@ -10,6 +10,7 @@ setup(
     author_email='jonas@lophus.org',
     packages=['django_addanother'],
     zip_safe=False,
+    include_package_data=True,
     url='https://github.com/jonashaag/django-addanother',
     description='"Add another" buttons outside the Django admin',
     classifiers=[
