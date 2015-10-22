@@ -1,1 +1,1 @@
-recursive-include django-addanother *.js
+recursive-include django_addanother *.js
