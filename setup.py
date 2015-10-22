@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name='django_addanother',
-    version='0.1.1',
+    version='0.1.2',
     author='Jonas Haag',
     author_email='jonas@lophus.org',
     packages=['django_addanother'],
