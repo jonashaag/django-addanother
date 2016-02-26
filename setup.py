@@ -5,10 +5,10 @@ from setuptools import setup
 
 setup(
     name='django_addanother',
-    version='0.1.2',
-    author='Jonas Haag',
-    author_email='jonas@lophus.org',
-    packages=['django_addanother'],
+    version='1.0.0',
+    author='Jonas Haag, James Pic',
+    author_email='jonas@lophus.org, jamespic@gmail.com',
+    packages=['addanother'],
     zip_safe=False,
     include_package_data=True,
     url='https://github.com/jonashaag/django-addanother',
@@ -24,4 +24,3 @@ setup(
     ],
     install_requires=['django'],
 )
-
