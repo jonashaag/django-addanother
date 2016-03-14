@@ -1,3 +1,8 @@
-*.pyc
 docs/_build/
+__pycache__
+*.pyc
 *.egg-info
+.tox
+.coverage
+.cache
+test_project/db.sqlite3

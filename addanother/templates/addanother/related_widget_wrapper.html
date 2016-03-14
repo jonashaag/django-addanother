@@ -1,0 +1,10 @@
+{% load i18n static %}
+<div class="related-widget-wrapper">
+    {{ widget }}
+
+    <a class="related-widget-wrapper-link add-related" id="add_id_{{ name }}"
+        href="{{ add_related_url }}?{{ url_params }}"
+        title="{% blocktrans %}Add another{% endblocktrans %}">
+        <img src="{% static add_icon %}" alt="{% trans 'Add' %}"/>
+    </a>
+</div>
