@@ -1,0 +1,1 @@
+django-select2
