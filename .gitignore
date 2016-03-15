@@ -6,3 +6,4 @@ __pycache__
 .coverage
 .cache
 test_project/db.sqlite3
+dist/
