@@ -1,5 +1,7 @@
-django-addanother provides you with *add another* buttons for forms outside the Django administration interface. It also provides an optional integration with
-django-select2_.
+.. image:: https://travis-ci.org/jonashaag/django-addanother.svg?branch=master
+    :target: https://travis-ci.org/jonashaag/django-addanother
+
+django-addanother provides you with *add another* buttons for forms outside the Django administration interface. It also provides an optional integration with django-select2_.
 
 See documentation_ for details.
 
