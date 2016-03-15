@@ -27,11 +27,11 @@ class WidgetWrapperMixin(object):
 
 
 class AddAnotherWidgetWrapper(WidgetWrapperMixin, forms.Widget):
-    template = 'addanother/related_widget_wrapper.html'
+    template = 'django_addanother/related_widget_wrapper.html'
 
     class Media:
         js = (
-            'addanother/django_jquery.js',
+            'django_addanother/django_jquery.js',
             'admin/js/admin/RelatedObjectLookups.js',
         )
         if VERSION < (1, 9):

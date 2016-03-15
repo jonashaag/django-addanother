@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group, User
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
 
-from addanother.views import CreateView
+from django_addanother.views import CreateView
 
 from forms import TestForm
 

@@ -1,4 +1,4 @@
-from addanother.widgets import AddAnotherWidgetWrapper
+from django_addanother.widgets import AddAnotherWidgetWrapper
 
 from django.contrib.auth.models import Group, User
 from django.core.urlresolvers import reverse_lazy
@@ -11,7 +11,7 @@ class TestForm(forms.ModelForm):
         fields = ['username', 'groups']
         widgets = {
             'groups': AddAnotherWidgetWrapper(
-                forms.SelectMultiple(choices=Group.objects.all()),
+                forms.SelectMultiple(),
                 reverse_lazy('add'),
             )
         }

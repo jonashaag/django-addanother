@@ -8,7 +8,7 @@ setup(
     version='1.0.0',
     author='Jonas Haag, James Pic',
     author_email='jonas@lophus.org, jamespic@gmail.com',
-    packages=['addanother'],
+    packages=['django_addanother'],
     zip_safe=False,
     include_package_data=True,
     url='https://github.com/jonashaag/django-addanother',
