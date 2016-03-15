@@ -56,8 +56,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'django-addanother'
-copyright = '2015, Jonas Haag'
-author = 'Jonas Haag'
+copyright = '2015, Jonas Haag, James Pic'
+author = 'Jonas Haag, James Pic'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
