@@ -6,20 +6,21 @@
 {% endblock %}
 
 {% block content %}
-<div style="display: inline-block; width: 49%; vertical-align:top;">
+<div style="display: inline-block; width: 65%; vertical-align:top;">
     <h2>django-addanother example form</h2>
     <p>
-        django-addanother is a small app to enable the "Add-another" popup
-        feature outside the admin.
+        django-addanother is a small app to enable the "add another" popup
+        feature outside Django's admin.
     </p>
     <p>
-        If you want to replace select fields with autocompletes, try <a
-            href="https://github.com/yourlabs/django-autocomplete-light"
-            title="django-autocomplete-light, the best autocomplete app"
-        >django-autocomplete-light</a>
+        If you want to replace select fields with autocompletes, try
+        <a href="https://github.com/yourlabs/django-autocomplete-light">django-autocomplete-light</a>.
+    </p>
 
-    <form action="" method="post">
-        {{ form.as_p }}
+    <form action="" method="post" style="padding: 20px; border: 1px solid #ddd">
+        <table>
+          {{ form.as_table }}
+        </table>
         {% csrf_token %}
         <input type="submit" value="Submit" />
     </form>
@@ -27,27 +28,21 @@
     <script type="text/javascript" src="{% static jquery %}"></script>
     {{ form.media }}
 </div>
-<div style="display: inline-block; width: 49%; vertical-align:top;">
-    <h2>Need help ?</h2>
+<div style="display: inline-block; width: 29%; margin-left: 5%; vertical-align:top;">
+    <h2>Need help?</h2>
     <p>
         If you can reproduce a bug in the demo project, it will be made a
         priority to fix it, and add regression test to prevent it from occuring
         again in the future. In this case, please clone the
         <a
-            href="https://github.com/yourlabs/django-addanother"
+            href="https://github.com/jonashaag/django-addanother"
             title="Add-another popup outside django admin"
-        >Repository</a>, configure the simplest example you can in a new app in
-        test_project and submit your pull request.
+        >GitHub repository</a>, configure the simplest example you can in a new app in
+        <code>test_project</code> and submit your pull request.
     </p>
     <p>
         The easier you make it for us to reproduce your issue in an isolated
-        use-case, the best are your chances to have a satisfying answer.
-    </p>
-    <p>
-        For any general Django question, consider <a
-            href="https://hackhands.com/jpic">paid support</a> for this app and
-        Django in general !
-        <!-- contributors please submit a PR to add your URL here -->
+        use-case, the best are your chances to get a satisfying answer.
     </p>
 </div>
 {% endblock %}
