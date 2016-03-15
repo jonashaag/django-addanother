@@ -1,4 +1,5 @@
 Views Reference
 ===============
-.. automodule:: django_addanother.views
+.. currentmodule:: django_addanother.views
+.. autoclass:: PopupMixin
   :members:

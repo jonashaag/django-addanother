@@ -5,37 +5,37 @@ How to Use
 
 1. Add the *add another* button
 -------------------------------
-Replace the widget of the form field you want to show the *add another* button next to with the widgets provided by django-addanother:
-
-+----------------------------------------------+--------------------------------------------------------------+
-| Stock widget                                 | django-addanother widget                                     |
-+==============================================+==============================================================+
-| :class:`~django.forms.Select`                | :class:`~django_addanother.widgets.SelectAddAnother`         |
-| (:class:`~django.db.models.ForeignKey`)      |                                                              |
-+----------------------------------------------+--------------------------------------------------------------+
-| :class:`~django.forms.SelectMultiple`        | :class:`~django_addanother.widgets.SelectMultipleAddAnother` |
-| (:class:`~django.db.models.ManyToManyField`) |                                                              |
-+----------------------------------------------+--------------------------------------------------------------+
-
+Wrap :class:`AddAnotherWidgetWrapper` around your widget to show the *add another* button next to it.
 
 For example, let's say we want to add *add another* buttons to a model form::
 
-  from django_addanother.widgets import SelectAddAnother, SelectMultipleAddAnother
+  from django.core.urlresolvers import reverse_lazy
+  from django_addanother.widgets import AddAnotherWidgetWrapper
   
   class FooForm(forms.ModelForm):
       class Meta:
           ...
           widgets = {
-              'sender': SelectAddAnother(add_another_url='person_create'),
-              'recipients': SelectMultipleAddAnother(add_another_url='person_create'),
+              'sender': AddAnotherWidgetWrapper(
+                  forms.Select,
+                  reverse_lazy('person_create'),
+              ),
+              'recipients': AddAnotherWidgetWrapper(
+                  forms.SelectMultiple,
+                  reverse_lazy('person_create'),
+              )
           }
 
-This will add an *add another* button next to the ``sender`` and ``recipients`` fields. When clicked, these will open the ``'person_create'`` URL in a popup.  The ``add_another_url`` keyword argument is passed as-is to :func:`django.shortcuts.resolve_url`, so you may pass full URLs, view names etc. as well.
+This will add an *add another* button next to the ``sender`` and ``recipients`` fields. When clicked, these will open the ``'person_create'`` URL in a popup.
 
-.. important:: Be sure to include form media in your templates::
+.. important::
+  Be sure to include form media and jQuery in your templates:
   
-  {{ form }}
-  {{ form.media }}
+  .. code-block:: django
+
+    {{ form }}
+    <script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ form.media }}
 
 
 2. Make your view popup-compatible

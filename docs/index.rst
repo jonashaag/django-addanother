@@ -6,13 +6,22 @@ django-select2_.
 
 .. _django-select2: http://django-select2.readthedocs.org/
 
-Contents:
-
+Getting started
+---------------
 .. toctree::
   :maxdepth: 2
 
   installation
+  demo
   usage
+
+
+Advanced topics
+---------------
+.. toctree::
+  :maxdepth: 2
+
+  select2
   howitworks
   reference/index
 
@@ -24,4 +33,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

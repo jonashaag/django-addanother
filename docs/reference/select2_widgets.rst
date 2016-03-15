@@ -1,6 +1,8 @@
+.. _select2ref:
+
 Select2 Widgets Reference
 =========================
-.. currentmodule:: django_addanother.select2_widgets
+.. currentmodule:: django_addanother.contrib.select2
 .. autoclass:: Select2AddAnother
 .. autoclass:: HeavySelect2AddAnother
 .. autoclass:: Select2MultipleAddAnother
