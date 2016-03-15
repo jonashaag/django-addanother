@@ -1,6 +1,5 @@
 import pytest
 
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 
 def test_empty_form(session_browser, live_server):

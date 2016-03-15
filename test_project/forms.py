@@ -11,7 +11,7 @@ class TestForm(forms.ModelForm):
         fields = ['username', 'groups']
         widgets = {
             'groups': AddAnotherWidgetWrapper(
-                forms.SelectMultiple(),
-                reverse_lazy('add'),
+                forms.SelectMultiple,
+                reverse_lazy('add_group'),
             )
         }

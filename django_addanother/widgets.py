@@ -1,9 +1,19 @@
-from django import VERSION, forms
+import django
+from django import forms
 
 from django.contrib.admin.views.main import IS_POPUP_VAR
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+
+if django.VERSION < (1, 9):
+    DEFAULT_ADD_ICON = 'admin/img/icon_addlink.gif'
+else:
+    DEFAULT_ADD_ICON = 'admin/img/icon-addlink.svg'
+
+
+# Most of the wrapper code that follows is copied/inspired by Django's
+# RelatedFieldWidgetWrapper.
 
 class WidgetWrapperMixin(object):
     @property
@@ -27,6 +37,8 @@ class WidgetWrapperMixin(object):
 
 
 class AddAnotherWidgetWrapper(WidgetWrapperMixin, forms.Widget):
+    #: The template that is used to render the *add another* button.
+    #: Overwrite this to customize the rendering.
     template = 'django_addanother/related_widget_wrapper.html'
 
     class Media:
@@ -34,27 +46,23 @@ class AddAnotherWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             'django_addanother/django_jquery.js',
             'admin/js/admin/RelatedObjectLookups.js',
         )
-        if VERSION < (1, 9):
+        if django.VERSION < (1, 9):
+            # This is part of "RelatedObjectLookups.js" in Django 1.9
             js += ('admin/js/related-widget-wrapper.js',)
 
     def __init__(self, widget, add_related_url, add_icon=None):
+        if isinstance(widget, type):
+            widget = widget()
+        if add_icon is None:
+            add_icon = DEFAULT_ADD_ICON
         self.widget = widget
         self.attrs = widget.attrs
-        self.choices = widget.choices
         self.add_related_url = add_related_url
         self.add_icon = add_icon
 
-        if self.add_icon is None:
-            if VERSION < (1, 9):
-                self.add_icon = 'admin/img/icon_addlink.gif'
-            else:
-                self.add_icon = 'admin/img/icon-addlink.svg'
-
     def render(self, name, value, *args, **kwargs):
         self.widget.choices = self.choices
-        url_params = '&'.join("%s=%s" % param for param in [
-            (IS_POPUP_VAR, 1),
-        ])
+        url_params = "%s=%s" % (IS_POPUP_VAR, 1)
         context = {
             'widget': self.widget.render(name, value, *args, **kwargs),
             'name': name,
