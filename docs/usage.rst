@@ -56,7 +56,7 @@ You may want to hide header, footer and navigation elements for the popups. When
 
   .. code-block:: django
 
-    {% if view.is_popup %}
+    {% if not view.is_popup %}
       <nav>...</nav>
     {% endif %}
 
