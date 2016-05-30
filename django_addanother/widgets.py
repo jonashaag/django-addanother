@@ -39,7 +39,7 @@ class WidgetWrapperMixin(object):
 
 
 
-class AddEditWidgetWrapper(WidgetWrapperMixin, forms.Widget):
+class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
     #: The template that is used to render the *add another* button.
     #: Overwrite this to customize the rendering.
     template = 'django_addanother/related_widget_wrapper.html'
@@ -83,11 +83,10 @@ class AddEditWidgetWrapper(WidgetWrapperMixin, forms.Widget):
         return mark_safe(render_to_string(self.template, context))
 
 
-class AddAnotherWidgetWrapper(AddEditWidgetWrapper):
+class AddAnotherWidgetWrapper(RelatedWidgetWrapper):
     def __init__(self, widget, add_related_url, add_icon=None):
-        print('hehe ;) im here')
         super(AddAnotherWidgetWrapper, self).__init__(widget, add_related_url, None, add_icon, None)
 
-class EditSelectedWidgetWrapper(AddEditWidgetWrapper):
+class EditSelectedWidgetWrapper(RelatedWidgetWrapper):
     def __init__(self, widget, edit_related_url, edit_icon=None):
         super(EditSelectedWidgetWrapper, self).__init__(widget, None, edit_related_url, None, edit_icon)
