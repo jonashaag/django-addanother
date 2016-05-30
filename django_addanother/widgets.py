@@ -47,6 +47,7 @@ class AddEditWidgetWrapper(WidgetWrapperMixin, forms.Widget):
     class Media:
         js = (
             'django_addanother/django_jquery.js',
+            'django_addanother/edit_related.js',
             'admin/js/admin/RelatedObjectLookups.js',
         )
         if django.VERSION < (1, 9):
