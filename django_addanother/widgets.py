@@ -8,8 +8,10 @@ from django.utils.safestring import mark_safe
 
 if django.VERSION < (1, 9):
     DEFAULT_ADD_ICON = 'admin/img/icon_addlink.gif'
+    DEFAULT_EDIT_ICON = 'admin/img/icon_changelink.gif'
 else:
     DEFAULT_ADD_ICON = 'admin/img/icon-addlink.svg'
+    DEFAULT_EDIT_ICON = 'admin/img/icon-changelink.svg'
 
 
 # Most of the wrapper code that follows is copied/inspired by Django's
@@ -36,7 +38,8 @@ class WidgetWrapperMixin(object):
         return self.widget.id_for_label(id_)
 
 
-class AddAnotherWidgetWrapper(WidgetWrapperMixin, forms.Widget):
+
+class AddEditWidgetWrapper(WidgetWrapperMixin, forms.Widget):
     #: The template that is used to render the *add another* button.
     #: Overwrite this to customize the rendering.
     template = 'django_addanother/related_widget_wrapper.html'
@@ -50,15 +53,19 @@ class AddAnotherWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             # This is part of "RelatedObjectLookups.js" in Django 1.9
             js += ('admin/js/related-widget-wrapper.js',)
 
-    def __init__(self, widget, add_related_url, add_icon=None):
+    def __init__(self, widget, add_related_url, edit_related_url, add_icon=None, edit_icon=None):
         if isinstance(widget, type):
             widget = widget()
         if add_icon is None:
             add_icon = DEFAULT_ADD_ICON
+        if edit_icon is None:
+            edit_icon = DEFAULT_EDIT_ICON
         self.widget = widget
         self.attrs = widget.attrs
         self.add_related_url = add_related_url
         self.add_icon = add_icon
+        self.edit_related_url = edit_related_url
+        self.edit_icon = edit_icon
 
     def render(self, name, value, *args, **kwargs):
         self.widget.choices = self.choices
@@ -69,5 +76,17 @@ class AddAnotherWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             'url_params': url_params,
             'add_related_url': self.add_related_url,
             'add_icon': self.add_icon,
+            'edit_related_url': self.edit_related_url,
+            'edit_icon': self.edit_icon,
         }
         return mark_safe(render_to_string(self.template, context))
+
+
+class AddAnotherWidgetWrapper(AddEditWidgetWrapper):
+    def __init__(self, widget, add_related_url, add_icon=None):
+        print('hehe ;) im here')
+        super(AddAnotherWidgetWrapper, self).__init__(widget, add_related_url, None, add_icon, None)
+
+class EditSelectedWidgetWrapper(AddEditWidgetWrapper):
+    def __init__(self, widget, edit_related_url, edit_icon=None):
+        super(EditSelectedWidgetWrapper, self).__init__(widget, None, edit_related_url, None, edit_icon)
