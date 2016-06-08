@@ -50,7 +50,6 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             'all': ( 'django_addanother/addanother.css', )
         }
         js = (
-            reverse_lazy('admin:jsi18n'),
             'django_addanother/django_jquery.js',
             'admin/js/admin/RelatedObjectLookups.js',
         )
