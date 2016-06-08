@@ -1,9 +1,7 @@
-from django import http
 from django.contrib.admin.options import IS_POPUP_VAR
-from django.template.defaultfilters import escapejs
+from django.template.response import SimpleTemplateResponse
 from django.utils import six
 from django.utils.encoding import force_text
-from django.template.response import SimpleTemplateResponse
 
 
 class PopupMixin(object):
@@ -29,11 +27,11 @@ class PopupMixin(object):
 
     def respond_script(self, created_obj):
         return SimpleTemplateResponse('admin/popup_response.html', {
-                'action': 'add',
-                'value': six.text_type(self._get_created_obj_pk(created_obj)),
-                'obj':six.text_type(self.label_from_instance(created_obj)),
-                'new_value': six.text_type(self._get_created_obj_pk(created_obj)),
-            })
+            'action': 'add',
+            'value': six.text_type(self._get_created_obj_pk(created_obj)),
+            'obj': six.text_type(self.label_from_instance(created_obj)),
+            'new_value': six.text_type(self._get_created_obj_pk(created_obj)),
+        })
 
     def _get_created_obj_pk(self, created_obj):
         pk_name = created_obj._meta.pk.attname
@@ -47,14 +45,15 @@ class PopupMixin(object):
         """
         return force_text(related_instance)
 
+
 class ChangePopupMixin(PopupMixin):
     """Mixin for :class:`~django.views.generic.edit.Updateview` classes that
     handles the case of the view being opened in an *edit related* popup window.
     """
     def respond_script(self, created_obj):
         return SimpleTemplateResponse('admin/popup_response.html', {
-                'action': 'change',
-                'value': six.text_type(self._get_created_obj_pk(created_obj)),
-                'obj':six.text_type(self.label_from_instance(created_obj)),
-                'new_value': six.text_type(self._get_created_obj_pk(created_obj)),
-            })
+            'action': 'change',
+            'value': six.text_type(self._get_created_obj_pk(created_obj)),
+            'obj': six.text_type(self.label_from_instance(created_obj)),
+            'new_value': six.text_type(self._get_created_obj_pk(created_obj)),
+        })

@@ -1,6 +1,5 @@
 import django
 from django import forms
-from django.core.urlresolvers import reverse_lazy
 from django.contrib.admin.views.main import IS_POPUP_VAR
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -39,7 +38,6 @@ class WidgetWrapperMixin(object):
         return self.widget.id_for_label(id_)
 
 
-
 class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
     #: The template that is used to render the *add another* button.
     #: Overwrite this to customize the rendering.
@@ -47,7 +45,7 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
 
     class Media:
         css = {
-            'all': ( 'django_addanother/addanother.css', )
+            'all': ('django_addanother/addanother.css',)
         }
         js = (
             'django_addanother/django_jquery.js',
@@ -57,7 +55,9 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             # This is part of "RelatedObjectLookups.js" in Django 1.9
             js += ('admin/js/related-widget-wrapper.js',)
 
-    def __init__(self, widget, add_related_url, edit_related_url, add_icon=None, edit_icon=None, edit_icon_disabled=None):
+    def __init__(self, widget, add_related_url,
+                 edit_related_url, add_icon=None,
+                 edit_icon=None, edit_icon_disabled=None):
         if isinstance(widget, type):
             widget = widget()
         if add_icon is None:
@@ -93,8 +93,13 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
 
 class AddAnotherWidgetWrapper(RelatedWidgetWrapper):
     def __init__(self, widget, add_related_url, add_icon=None):
-        super(AddAnotherWidgetWrapper, self).__init__(widget, add_related_url, None, add_icon, None)
+        super(AddAnotherWidgetWrapper, self).__init__(
+            widget, add_related_url, None, add_icon, None
+        )
+
 
 class EditSelectedWidgetWrapper(RelatedWidgetWrapper):
     def __init__(self, widget, edit_related_url, edit_icon=None):
-        super(EditSelectedWidgetWrapper, self).__init__(widget, None, edit_related_url, None, edit_icon)
+        super(EditSelectedWidgetWrapper, self).__init__(
+            widget, None, edit_related_url, None, edit_icon
+        )
