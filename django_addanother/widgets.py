@@ -72,14 +72,20 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
     def render(self, name, value, *args, **kwargs):
         self.widget.choices = self.choices
 
+        add_params_separator = '&' if (self.add_related_url and '?' in self.add_related_url) else '?'
+        edit_params_separator = '&' if (self.edit_related_url and '?' in self.edit_related_url) else '?'
+
         url_params = "%s=%s" % (IS_POPUP_VAR, 1)
+
         context = {
             'widget': self.widget.render(name, value, *args, **kwargs),
             'name': name,
             'url_params': url_params,
             'add_related_url': self.add_related_url,
+            'add_params_separator': mark_safe(add_params_separator),
             'add_icon': self.add_icon,
             'edit_related_url': self.edit_related_url,
+            'edit_params_separator': mark_safe(edit_params_separator),
             'edit_icon': self.edit_icon,
         }
         return mark_safe(render_to_string(self.template, context))
