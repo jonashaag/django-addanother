@@ -4,6 +4,7 @@ $(function(){
 
         var id = $(this).val();
         var button = $(this).siblings('.related-widget-wrapper-link.change-related');
+        var disabled = $(this).siblings('.change-related-disabled');
 
         if(button.length){
 
@@ -17,8 +18,10 @@ $(function(){
 
             if( id ){
                 button.show();
+                disabled.hide();
             } else {
                 button.hide();
+                disabled.show();
             }
 
         }

@@ -12,6 +12,7 @@ if django.VERSION < (1, 9):
 else:
     DEFAULT_ADD_ICON = 'admin/img/icon-addlink.svg'
     DEFAULT_EDIT_ICON = 'admin/img/icon-changelink.svg'
+DEFAULT_EDIT_ICON_DISABLED = 'django_addanother/img/icon-changelink-disabled.svg'
 
 
 # Most of the wrapper code that follows is copied/inspired by Django's
@@ -54,22 +55,26 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             # This is part of "RelatedObjectLookups.js" in Django 1.9
             js += ('admin/js/related-widget-wrapper.js',)
 
-    def __init__(self, widget, add_related_url, edit_related_url, add_icon=None, edit_icon=None):
+    def __init__(self, widget, add_related_url, edit_related_url, add_icon=None, edit_icon=None, edit_icon_disabled=None):
         if isinstance(widget, type):
             widget = widget()
         if add_icon is None:
             add_icon = DEFAULT_ADD_ICON
         if edit_icon is None:
             edit_icon = DEFAULT_EDIT_ICON
+        if edit_icon_disabled is None:
+            edit_icon_disabled = DEFAULT_EDIT_ICON_DISABLED
         self.widget = widget
         self.attrs = widget.attrs
         self.add_related_url = add_related_url
         self.add_icon = add_icon
         self.edit_related_url = edit_related_url
         self.edit_icon = edit_icon
+        self.edit_icon_disabled = edit_icon_disabled
 
     def render(self, name, value, *args, **kwargs):
         self.widget.choices = self.choices
+
         url_params = "%s=%s" % (IS_POPUP_VAR, 1)
         context = {
             'widget': self.widget.render(name, value, *args, **kwargs),
@@ -79,6 +84,7 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             'add_icon': self.add_icon,
             'edit_related_url': self.edit_related_url,
             'edit_icon': self.edit_icon,
+            'edit_icon_disabled': self.edit_icon_disabled,
         }
         return mark_safe(render_to_string(self.template, context))
 

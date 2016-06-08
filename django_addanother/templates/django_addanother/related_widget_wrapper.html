@@ -10,6 +10,7 @@
         title="{% blocktrans %}Edit related{% endblocktrans %}">
         <img src="{% static edit_icon %}" alt="{% trans 'Edit' %}"/>
     </a>
+    <img class="change-related-disabled" src="{% static edit_icon_disabled %}" alt="{% trans 'Edit (disabled)' %}"/>
     {% endif %}
 
     {% if add_related_url %}
