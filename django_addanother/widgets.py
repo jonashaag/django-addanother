@@ -1,6 +1,6 @@
 import django
 from django import forms
-
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.admin.views.main import IS_POPUP_VAR
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -50,6 +50,7 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
             'all': ( 'django_addanother/addanother.css', )
         }
         js = (
+            reverse_lazy('admin:jsi18n'),
             'django_addanother/django_jquery.js',
             'admin/js/admin/RelatedObjectLookups.js',
         )
