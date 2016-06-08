@@ -4,13 +4,12 @@
 
     {% if edit_related_url %}
     &nbsp;
-    <a class="related-widget-wrapper-link change-related" id="edit_id_{{ name }}"
+    <a class="related-widget-wrapper-link change-related" id="change_id_{{ name }}"
         href=""
-        href-base="{{ edit_related_url }}?{{ url_params }}"
+        data-href-template="{{ edit_related_url }}?{{ url_params }}"
         title="{% blocktrans %}Edit related{% endblocktrans %}">
         <img src="{% static edit_icon %}" alt="{% trans 'Edit' %}"/>
     </a>
-    <img class="change-related-disabled" src="{% static edit_icon_disabled %}" alt="{% trans 'Edit (disabled)' %}"/>
     {% endif %}
 
     {% if add_related_url %}
