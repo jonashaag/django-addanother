@@ -1,4 +1,6 @@
+import django
 from django.contrib.admin.options import IS_POPUP_VAR
+from django.template.defaultfilters import escapejs
 from django.template.response import SimpleTemplateResponse
 from django.utils import six
 from django.utils.encoding import force_text
@@ -8,6 +10,9 @@ class PopupMixin(object):
     """Mixin for :class:`~django.views.generic.edit.CreateView` classes that
     handles the case of the view being opened in an *add another* popup window.
     """
+
+    POPUP_ACTION = 'add'
+
     def is_popup(self):
         return self.request.GET.get(IS_POPUP_VAR, False)
 
@@ -26,12 +31,23 @@ class PopupMixin(object):
             return response
 
     def respond_script(self, created_obj):
-        return SimpleTemplateResponse('admin/popup_response.html', {
-            'action': 'add',
-            'value': six.text_type(self._get_created_obj_pk(created_obj)),
-            'obj': six.text_type(self.label_from_instance(created_obj)),
-            'new_value': six.text_type(self._get_created_obj_pk(created_obj)),
-        })
+        if django.VERSION < (1, 10):
+            return SimpleTemplateResponse('admin/popup_response.html', {
+                'action': self.POPUP_ACTION,
+                'value': six.text_type(self._get_created_obj_pk(created_obj)),
+                'obj': six.text_type(self.label_from_instance(created_obj)),
+                'new_value': six.text_type(self._get_created_obj_pk(created_obj)),
+            })
+        else:
+            return SimpleTemplateResponse('admin/popup_response.html', {
+                'popup_response_data':
+                    '{"action":"%s","value":"%s","obj":"%s","new_value":"%s"}' % (
+                        self.POPUP_ACTION,
+                        escapejs(six.text_type(self._get_created_obj_pk(created_obj))),
+                        escapejs(six.text_type(self.label_from_instance(created_obj))),
+                        escapejs(six.text_type(self._get_created_obj_pk(created_obj))),
+                    )
+            })
 
     def _get_created_obj_pk(self, created_obj):
         pk_name = created_obj._meta.pk.attname
@@ -50,10 +66,5 @@ class ChangePopupMixin(PopupMixin):
     """Mixin for :class:`~django.views.generic.edit.Updateview` classes that
     handles the case of the view being opened in an *edit related* popup window.
     """
-    def respond_script(self, created_obj):
-        return SimpleTemplateResponse('admin/popup_response.html', {
-            'action': 'change',
-            'value': six.text_type(self._get_created_obj_pk(created_obj)),
-            'obj': six.text_type(self.label_from_instance(created_obj)),
-            'new_value': six.text_type(self._get_created_obj_pk(created_obj)),
-        })
+
+    POPUP_ACTION = 'change'
