@@ -5,9 +5,13 @@
     <h1>django-addanother demo</h1>
 {% endblock %}
 
+{% block extrahead %}
+<script type="text/javascript" src="{% static jquery %}"></script>
+{{ form.media }}
+{% endblock %}
+
 {% block content %}
 <div style="display: inline-block; width: 65%; vertical-align:top;">
-    <h2>django-addanother example form</h2>
     <p>
         django-addanother is a small app to enable the "add another" popup
         feature outside Django's admin.
@@ -17,6 +21,7 @@
         <a href="https://github.com/yourlabs/django-autocomplete-light">django-autocomplete-light</a>.
     </p>
 
+    <h2>AddAnotherWidgetWrapper</h2>
     <form action="" method="post" style="padding: 20px; border: 1px solid #ddd">
         <table>
           {{ form.as_table }}
@@ -24,9 +29,7 @@
         {% csrf_token %}
         <input type="submit" value="Submit" />
     </form>
-
-    <script type="text/javascript" src="{% static jquery %}"></script>
-    {{ form.media }}
+    
 </div>
 <div style="display: inline-block; width: 29%; margin-left: 5%; vertical-align:top;">
     <h2>Need help?</h2>
