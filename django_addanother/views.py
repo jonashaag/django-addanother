@@ -1,9 +1,9 @@
 import django
+import json
 from django.contrib.admin.options import IS_POPUP_VAR
 from django.template.response import SimpleTemplateResponse
 from django.utils import six
 from django.utils.encoding import force_text
-import json
 
 
 class BasePopupMixin(object):
@@ -61,13 +61,13 @@ class BasePopupMixin(object):
         return force_text(related_instance)
 
 
-
 class AddPopupMixin(BasePopupMixin):
     """Mixin for :class:`~django.views.generic.edit.CreateView` classes that
     handles the case of the view being opened in an *add another* popup window.
     """
 
     POPUP_ACTION = 'add'
+
 
 class ChangePopupMixin(BasePopupMixin):
     """Mixin for :class:`~django.views.generic.edit.Updateview` classes that
