@@ -3,7 +3,6 @@
     {{ widget }}
 
     {% if edit_related_url %}
-    &nbsp;
     <a class="related-widget-wrapper-link change-related" id="change_id_{{ name }}"
         href=""
         data-href-template="{{ edit_related_url }}?{{ url_params }}"
@@ -13,7 +12,6 @@
     {% endif %}
 
     {% if add_related_url %}
-    &nbsp;
     <a class="related-widget-wrapper-link add-related" id="add_id_{{ name }}"
         href="{{ add_related_url }}?{{ url_params }}"
         title="{% blocktrans %}Add another{% endblocktrans %}">
