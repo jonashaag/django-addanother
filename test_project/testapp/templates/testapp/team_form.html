@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block branding %}
+    <h1>django-addanother demo</h1>
+{% endblock %}
+
+{% block content %}
+<div style="display: inline-block; width: 65%; vertical-align:top;">
+    <form action="" method="post" style="padding: 20px; border: 1px solid #ddd">
+        <table>
+          {{ form.as_table }}
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+{% endblock %}
