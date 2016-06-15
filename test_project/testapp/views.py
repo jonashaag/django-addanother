@@ -1,15 +1,15 @@
 import django
 from django.views import generic
 from django.shortcuts import render
-from django_addanother.views import AddPopupMixin, ChangePopupMixin
+from django_addanother.views import CreatePopupMixin, UpdatePopupMixin
 from .models import Team
 from .forms import TeamForm, PlayerForm
 
-class CreateTeam(AddPopupMixin, generic.CreateView):
+class CreateTeam(CreatePopupMixin, generic.CreateView):
     model = Team
     fields = ['name']
 
-class EditTeam(ChangePopupMixin, generic.UpdateView):
+class EditTeam(UpdatePopupMixin, generic.UpdateView):
     model = Team
     form_class = TeamForm
 
