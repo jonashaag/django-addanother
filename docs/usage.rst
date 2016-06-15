@@ -42,11 +42,11 @@ This will add an *add another* button next to the ``sender`` and ``recipients`` 
 ----------------------------------
 .. note:: This assumes you're using Django's generic :class:`~django.views.generic.edit.CreateView`. django-addanother doesn't support function-based views at the point of writing. You'll have to convert any function-based views to Class Based Views first.
 
-Making your ``CreateView`` compatible with django-addanother is as simple as making it inherit the :class:`django_addanother.views.AddPopupMixin` class::
+Making your ``CreateView`` compatible with django-addanother is as simple as making it inherit the :class:`django_addanother.views.CreatePopupMixin` class::
 
   from django_addanother.views import PopupMixin
 
-  class FooCreate(AddPopupMixin, CreateView):
+  class FooCreate(CreatePopupMixin, CreateView):
       model = Foo
       ...
 

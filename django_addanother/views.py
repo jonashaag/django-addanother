@@ -11,7 +11,7 @@ class BasePopupMixin(object):
     """Base Mixin for generic views classes that
     handles the case of the view being opened in a popup window.
     You shouldn't use this class, but one of the two subclesses
-    instead (ChangePopupMixin or AddPopupMixin)
+    instead (UpdatePopupMixin or CreatePopupMixin)
     """
 
     def is_popup(self):
@@ -62,7 +62,7 @@ class BasePopupMixin(object):
         return force_text(related_instance)
 
 
-class AddPopupMixin(BasePopupMixin):
+class CreatePopupMixin(BasePopupMixin):
     """Mixin for :class:`~django.views.generic.edit.CreateView` classes that
     handles the case of the view being opened in an *add another* popup window.
     """
@@ -70,7 +70,7 @@ class AddPopupMixin(BasePopupMixin):
     POPUP_ACTION = 'add'
 
 
-class ChangePopupMixin(BasePopupMixin):
+class UpdatePopupMixin(BasePopupMixin):
     """Mixin for :class:`~django.views.generic.edit.Updateview` classes that
     handles the case of the view being opened in an *edit related* popup window.
     """
