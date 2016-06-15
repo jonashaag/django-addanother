@@ -1,6 +1,11 @@
 import pytest
 
+from django.contrib.admin.views.main import IS_POPUP_VAR
+from django.core.urlresolvers import reverse_lazy
+from django import forms
 
+from django_addanother.widgets import AddAnotherWidgetWrapper
+from testapp.models import Player
 
 def test_empty_select_multiple(session_browser, live_server):
     def add_team(name):
@@ -30,8 +35,8 @@ def test_empty_select_multiple(session_browser, live_server):
     assert get_value() == ['1', '2']
 
     session_browser.find_by_css('input[type=submit]').click()
-    
-    
+
+
 def test_empty_foreign_key(session_browser, live_server):
 
     def add_team(name):
@@ -69,3 +74,35 @@ def test_empty_foreign_key(session_browser, live_server):
     assert get_value() == '3'
 
     session_browser.find_by_css('input[type=submit]').click()
+
+
+def test_get_parameter(session_browser, live_server):
+    """
+    We check that ?_popup=1 GET param is appended correctly
+    """
+
+    class TestForm(forms.ModelForm):
+        class Meta:
+            model = Player
+            fields = ['name', 'future_team', 'current_team']
+            widgets = {
+                'future_team': AddAnotherWidgetWrapper(
+                    forms.Select,
+                    reverse_lazy('add_team')
+                ),
+                'current_team': AddAnotherWidgetWrapper(
+                    forms.Select,
+                    reverse_lazy('add_team') + '?custom_param=test'
+                )
+            }
+    form = TestForm()
+
+    # Regular URLs should append ?_popup=1
+    future_team_expected_get_params = '?%s=1' % IS_POPUP_VAR
+    assert future_team_expected_get_params in form.fields['future_team'].widget.render(None, None)
+
+    print(form.fields['future_team'].widget.render(None, None))
+
+    # URLs that already have GET parameters should append &_popup=1
+    current_team_expected_get_params = '?custom_param=test&%s=1' % IS_POPUP_VAR
+    assert current_team_expected_get_params in form.fields['current_team'].widget.render(None, None)
