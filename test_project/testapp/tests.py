@@ -1,6 +1,7 @@
 import functools
 import pytest
 from django_addanother.contrib import select2 as da_select2
+from testapp.models import Team
 
 
 @pytest.mark.django_db
@@ -30,12 +31,14 @@ def test_empty_select_multiple(session_browser, live_server):
     session_browser.fill_form({'name': 'testplayer'})
 
     add_team('bar')
-    assert get_value_label(1) == 'bar'
-    assert get_value() == ['1']
+    bar_pk = Team.objects.get(name='bar').pk
+    assert get_value_label(bar_pk) == 'bar'
+    assert get_value() == [str(bar_pk)]
 
     add_team('foo')
-    assert get_value_label(2) == 'foo'
-    assert get_value() == ['1', '2']
+    foo_pk = Team.objects.get(name='foo').pk
+    assert get_value_label(foo_pk) == 'foo'
+    assert get_value() == [str(bar_pk), str(foo_pk)]
 
     session_browser.find_by_css('input[type=submit]').click()
 
@@ -58,12 +61,13 @@ def test_empty_foreign_key(session_browser, live_server):
     session_browser.fill_form({'name': 'testplayer'})
 
     add_team('john')
-    assert get_value_label(1) == 'john'
-    assert get_value() == '1'
+    team_pk = Team.objects.get(name='john').pk
+    assert get_value_label(team_pk) == 'john'
+    assert get_value() == str(team_pk)
 
     edit_team('doe')
-    assert get_value_label(2) == 'doe'
-    assert get_value() == '1'
+    assert get_value_label(team_pk) == 'doe'
+    assert get_value() == str(team_pk)
 
     session_browser.find_by_css('input[type=submit]').click()
 
