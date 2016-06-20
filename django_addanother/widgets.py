@@ -37,7 +37,12 @@ class WidgetWrapperMixin(object):
         return self.widget.id_for_label(id_)
 
 
-class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
+class BaseRelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
+    """Basis for the specialised wrappers below.
+
+    Don't call this directly, use some of the subclasses instead.
+    """
+
     #: The template that is used to render the *add another* button.
     #: Overwrite this to customize the rendering.
     template = 'django_addanother/related_widget_wrapper.html'
@@ -85,15 +90,25 @@ class RelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
         return mark_safe(render_to_string(self.template, context))
 
 
-class AddAnotherWidgetWrapper(RelatedWidgetWrapper):
+class AddAnotherWidgetWrapper(BaseRelatedWidgetWrapper):
+    """Widget wrapper that adds an *add another* button next to the original widget."""
+
     def __init__(self, widget, add_related_url, add_icon=None):
         super(AddAnotherWidgetWrapper, self).__init__(
             widget, add_related_url, None, add_icon, None
         )
 
 
-class EditSelectedWidgetWrapper(RelatedWidgetWrapper):
+class EditSelectedWidgetWrapper(BaseRelatedWidgetWrapper):
+    """Widget wrapper that adds an *edit related* button next to the original widget."""
+
     def __init__(self, widget, edit_related_url, edit_icon=None):
         super(EditSelectedWidgetWrapper, self).__init__(
             widget, None, edit_related_url, None, edit_icon
         )
+
+
+class AddAnotherEditSelectedWidgetWrapper(BaseRelatedWidgetWrapper):
+    """Widget wrapper that adds both *add another* and *edit related* button
+    next to the original widget.
+    """

@@ -1,53 +1,46 @@
-from django_select2.forms import (
-    Select2Widget,
-    HeavySelect2Widget,
-    Select2MultipleWidget,
-    HeavySelect2MultipleWidget,
-    HeavySelect2TagWidget,
-    ModelSelect2Widget,
-    ModelSelect2MultipleWidget,
-    ModelSelect2TagWidget,
-)
+import textwrap
 
-from ..widgets import AddAnotherWidgetWrapper
+from django.utils import six
+
+import django_select2.forms
+import django_addanother.widgets
 
 
-class Select2WidgetWrapper(AddAnotherWidgetWrapper):
-    def __init__(self, add_related_url, add_icon=None):
-        super(Select2WidgetWrapper, self).__init__(
-            self.widget_class,
-            add_related_url,
-            add_icon,
-        )
+def _gen_classes(globals_, locals_):
+    wrapper_classes = [
+        'AddAnother',
+        'EditSelected',
+        'AddAnotherEditSelected',
+    ]
+    select2_widgets = [
+        'Select2',
+        'HeavySelect2',
+        'Select2Multiple',
+        'HeavySelect2Multiple',
+        'HeavySelect2Tag',
+        'ModelSelect2',
+        'ModelSelect2Multiple',
+        'ModelSelect2Tag',
+    ]
+    cls_template = textwrap.dedent("""
+    class {cls_name}(django_addanother.widgets.{wrapper_cls}WidgetWrapper):
+        def __init__(self, *args, **kwargs):
+            super({cls_name}, self).__init__(
+                django_select2.forms.{widget_cls}Widget,
+                *args, **kwargs
+            )
+    """)
+
+    for wrapper_cls in wrapper_classes:
+        for widget_cls in select2_widgets:
+            cls_name = wrapper_cls + widget_cls
+            code = cls_template.format(
+                cls_name=cls_name,
+                widget_cls=widget_cls,
+                wrapper_cls=wrapper_cls
+            )
+            six.exec_(code, globals_, locals_)
+            yield cls_name
 
 
-class Select2AddAnother(Select2WidgetWrapper):
-    widget_class = Select2Widget
-
-
-class HeavySelect2AddAnother(Select2WidgetWrapper):
-    widget_class = HeavySelect2Widget
-
-
-class Select2MultipleAddAnother(Select2WidgetWrapper):
-    widget_class = Select2MultipleWidget
-
-
-class HeavySelect2MultipleAddAnother(Select2AddAnother):
-    widget_class = HeavySelect2MultipleWidget
-
-
-class HeavySelect2TagAddAnother(Select2AddAnother):
-    widget_class = HeavySelect2TagWidget
-
-
-class ModelSelect2AddAnother(Select2AddAnother):
-    widget_class = ModelSelect2Widget
-
-
-class ModelSelect2MultipleAddAnother(Select2AddAnother):
-    widget_class = ModelSelect2MultipleWidget
-
-
-class ModelSelect2TagAddAnother(Select2AddAnother):
-    widget_class = ModelSelect2TagWidget
+__all__ = list(_gen_classes(globals(), locals()))

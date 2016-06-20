@@ -1,5 +1,9 @@
 Views Reference
 ===============
 .. currentmodule:: django_addanother.views
-.. autoclass:: PopupMixin
+
+.. autoclass:: AddPopupMixin
+  :members:
+
+.. autoclass:: ChangePopupMixin
   :members:

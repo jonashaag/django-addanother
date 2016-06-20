@@ -1,15 +1,10 @@
-from django_addanother.widgets import AddAnotherWidgetWrapper, RelatedWidgetWrapper
-
-from django.contrib.auth.models import Group, User
-from django.core.urlresolvers import reverse_lazy
 from django import forms
-from .models import Team, Player
+from django.core.urlresolvers import reverse_lazy
 
+from django_addanother.widgets import AddAnotherWidgetWrapper, AddAnotherEditSelectedWidgetWrapper
 
-class TeamForm(forms.ModelForm):
-    class Meta:
-        model = Team
-        fields = ['name']
+from .models import Player
+
 
 class PlayerForm(forms.ModelForm):
     class Meta:
@@ -20,7 +15,7 @@ class PlayerForm(forms.ModelForm):
                 forms.Select,
                 reverse_lazy('add_team'),
             ),
-            'future_team': RelatedWidgetWrapper(
+            'future_team': AddAnotherEditSelectedWidgetWrapper(
                 forms.Select,
                 reverse_lazy('add_team'),
                 reverse_lazy('edit_team',args=['__fk__']),

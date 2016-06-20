@@ -44,9 +44,9 @@ This will add an *add another* button next to the ``sender`` and ``recipients`` 
 
 Making your ``CreateView`` compatible with django-addanother is as simple as making it inherit the :class:`django_addanother.views.CreatePopupMixin` class::
 
-  from django_addanother.views import PopupMixin
+  from django_addanother.views import AddPopupMixin
 
-  class FooCreate(CreatePopupMixin, CreateView):
+  class PersonCreate(CreatePopupMixin, CreateView):
       model = Foo
       ...
 
@@ -61,31 +61,8 @@ You may want to hide header, footer and navigation elements for the popups. When
     {% endif %}
 
 
-3. Add the *edit relaed* button
--------------------------------
-Similarly to the *add another* button, you can add the *edit related* button by wrapping your widget with the :class:`RelatedWidgetWrapper` class.
-
-It works exactly in the same way. You just need to provide an edit URL too.
-
-The edit url must contain the ``__fk__`` string as a placeholder for the actual object's primary key.
-
-  from django.core.urlresolvers import reverse_lazy
-  from django_addanother.widgets import AddAnotherWidgetWrapper
-  
-  class FooForm(forms.ModelForm):
-      class Meta:
-          ...
-          widgets = {
-              'sender': RelatedWidgetWrapper(
-                  forms.Select,
-                  reverse_lazy('person_create'),
-                  reverse_lazy('person_update',args=['__fk__']),
-              )
-          }
-
-If you need the *edit related* button only, but not the *add another*, wrap your widget with the :class:`EditSelectedWidgetWrapper` class.
-
-
-4. Profit
+3. Profit
 ---------
 That's it!
+
+See :ref:`edit-related` on how to add edit buttons too.
