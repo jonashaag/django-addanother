@@ -296,7 +296,8 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'https://docs.python.org/': None,
-    'http://django.readthedocs.org/en/stable/': None,
+    'http://django.readthedocs.io/en/stable/': None,
+    'https://django-select2.readthedocs.io/en/stable/': None,
 }
 
 sys.path.append(os.path.dirname(__file__))

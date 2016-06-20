@@ -5,7 +5,7 @@ How to Use
 
 1. Add the add-another button
 -------------------------------
-Wrap :class:`AddAnotherWidgetWrapper` around your widget to show the add-another button next to it.
+Wrap :class:`django_addanother.widgets.AddAnotherWidgetWrapper` around your widget to show the add-another button next to it.
 
 For example, let's say we want to add add-another buttons to a model form::
 

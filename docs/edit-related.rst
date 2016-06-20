@@ -5,8 +5,8 @@ Edit-related buttons
 
 Similarly to add-another buttons (see :ref:`usage`), to add edit-related buttons to your widget, proceed with the following steps:
 
-1. Wrap your widget with the :class:`AddAnotherEditSelectedWidgetWrapper` class, and provide an edit URL in addition to the add URL.
-2. Make your edit view popup-compatible by having it inherit the :class:`django_addanother.views.AddPopupMixin` class.
+1. Wrap your widget with the :class:`~django_addanother.widgets.AddAnotherEditSelectedWidgetWrapper` class, and provide an edit URL in addition to the add URL.
+2. Make your edit view popup-compatible by having it inherit the :class:`~django_addanother.views.CreatePopupMixin` class.
 
 The edit URL must contain the ``__fk__`` string as a placeholder for the actual object's primary key.  Example::
 
@@ -27,10 +27,10 @@ The edit URL must contain the ``__fk__`` string as a placeholder for the actual 
 
 
   # views.py
-  from django_addanother.views import ChangePopupMixin
+  from django_addanother.views import UpdatePopupMixin
 
-  class PersonUpdate(ChangePopupMixin, UpdateView):
+  class PersonUpdate(UpdatePopupMixin, UpdateView):
       model = Foo
       ...
 
-If you need the edit-related button only, but not the add-another, wrap your widget with the :class:`EditSelectedWidgetWrapper` class and remove the add URL.
+If you need the edit-related button only, but not the add-another, wrap your widget with the :class:`~django_addanother.widgets.EditSelectedWidgetWrapper` class and remove the add URL.

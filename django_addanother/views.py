@@ -64,7 +64,7 @@ class CreatePopupMixin(BasePopupMixin):
 
     .. versionchanged:: 2.0.0
        This used to be called ``PopupMixin`` and has been renamed with the
-       introduction of edit-related buttons and :class:`ChangePopupMixin`.
+       introduction of edit-related buttons and :class:`UpdatePopupMixin`.
     """
 
     POPUP_ACTION = 'add'
