@@ -1,6 +1,6 @@
 2.0.0 (Jun XX, 2016)
 --------------------
-New feature: *Edit related* buttons next to *add another* buttons, to allow for quick
+New feature: Edit-related buttons next to add-another buttons, to allow for quick
 modification of related objects in a popup. **Backwards incompatible:** ``PopupMixin``
 has been renamed to ``CreatePopupMixin`` without a deprecation path. (Olivier Dalang)
 

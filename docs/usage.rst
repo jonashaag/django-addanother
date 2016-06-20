@@ -3,11 +3,11 @@
 How to Use
 ==========
 
-1. Add the *add another* button
+1. Add the add-another button
 -------------------------------
-Wrap :class:`AddAnotherWidgetWrapper` around your widget to show the *add another* button next to it.
+Wrap :class:`AddAnotherWidgetWrapper` around your widget to show the add-another button next to it.
 
-For example, let's say we want to add *add another* buttons to a model form::
+For example, let's say we want to add add-another buttons to a model form::
 
   from django.core.urlresolvers import reverse_lazy
   from django_addanother.widgets import AddAnotherWidgetWrapper
@@ -26,7 +26,7 @@ For example, let's say we want to add *add another* buttons to a model form::
               )
           }
 
-This will add an *add another* button next to the ``sender`` and ``recipients`` fields. When clicked, these will open the ``'person_create'`` URL in a popup.
+This will add an add-another button next to the ``sender`` and ``recipients`` fields. When clicked, these will open the ``'person_create'`` URL in a popup.
 
 .. important::
   Be sure to include form media and jQuery in your templates:

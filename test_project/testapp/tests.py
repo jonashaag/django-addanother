@@ -47,7 +47,7 @@ def test_empty_foreign_key(session_browser, live_server):
     get_value_label = functools.partial(_get_value_label, session_browser, 'future_team')
 
     def edit_team(name):
-        """Click the *edit related* button to change a related Team object."""
+        """Click the edit-related button to change a related Team object."""
         session_browser.find_by_id('change_id_future_team').click()
         session_browser.windows.current = session_browser.windows[1]
         session_browser.fill_form({'name': name})
@@ -69,7 +69,7 @@ def test_empty_foreign_key(session_browser, live_server):
 
 
 def _add_team(session_browser, field, team_name):
-    """Click the *add another* button to add a new related Team object."""
+    """Click the add-another button to add a new related Team object."""
     session_browser.find_by_id('add_id_%s' % field).click()
     session_browser.windows.current = session_browser.windows[1]
     session_browser.fill_form({'name': team_name})

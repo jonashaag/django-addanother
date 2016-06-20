@@ -1,9 +1,9 @@
 .. _edit-related:
 
-*Edit related* buttons
-======================
+Edit-related buttons
+====================
 
-Similarly to *add another* buttons (see :ref:`usage`), to add *edit related* buttons to your widget, proceed with the following steps:
+Similarly to add-another buttons (see :ref:`usage`), to add edit-related buttons to your widget, proceed with the following steps:
 
 1. Wrap your widget with the :class:`AddAnotherEditSelectedWidgetWrapper` class, and provide an edit URL in addition to the add URL.
 2. Make your edit view popup-compatible by having it inherit the :class:`django_addanother.views.AddPopupMixin` class.
@@ -33,4 +33,4 @@ The edit URL must contain the ``__fk__`` string as a placeholder for the actual 
       model = Foo
       ...
 
-If you need the *edit related* button only, but not the *add another*, wrap your widget with the :class:`EditSelectedWidgetWrapper` class and remove the add URL.
+If you need the edit-related button only, but not the add-another, wrap your widget with the :class:`EditSelectedWidgetWrapper` class and remove the add URL.

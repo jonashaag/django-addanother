@@ -60,11 +60,11 @@ class BasePopupMixin(object):
 
 class CreatePopupMixin(BasePopupMixin):
     """Mixin for :class:`~django.views.generic.edit.CreateView` classes that
-    handles the case of the view being opened in an *add another* popup window.
+    handles the case of the view being opened in an add-another popup window.
 
     .. versionchanged:: 2.0.0
        This used to be called ``PopupMixin`` and has been renamed with the
-       introduction of *edit related* buttons and :class:`ChangePopupMixin`.
+       introduction of edit-related buttons and :class:`ChangePopupMixin`.
     """
 
     POPUP_ACTION = 'add'
@@ -72,7 +72,7 @@ class CreatePopupMixin(BasePopupMixin):
 
 class UpdatePopupMixin(BasePopupMixin):
     """Mixin for :class:`~django.views.generic.edit.UpdateView` classes that
-    handles the case of the view being opened in an *edit related* popup window.
+    handles the case of the view being opened in an edit-related popup window.
 
     .. versionadded:: 2.0.0
     """
