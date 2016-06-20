@@ -2,8 +2,8 @@ import textwrap
 
 from django.utils import six
 
-import django_select2.forms
-import django_addanother.widgets
+import django_select2.forms  # NOQA
+import django_addanother.widgets  # NOQA
 
 
 def _gen_classes(globals_, locals_):
