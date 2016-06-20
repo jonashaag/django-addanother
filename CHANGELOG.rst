@@ -2,7 +2,7 @@
 --------------------
 New feature: *Edit related* buttons next to *add another* buttons, to allow for quick
 modification of related objects in a popup. **Backwards incompatible:** ``PopupMixin``
-has been renamed to ``AddPopupMixin`` without a deprecation path.
+has been renamed to ``CreatePopupMixin`` without a deprecation path. (Olivier Dalang)
 
 1.0.0 (Mar 17, 2016)
 --------------------
