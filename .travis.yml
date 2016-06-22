@@ -12,12 +12,13 @@ env:
 - TOXENV=py27-django18
 - TOXENV=py27-django19
 - TOXENV=py27-django110
+- TOXENV=py27-djangomaster
+- TOXENV=py35-djangomaster
 - TOXENV=checkqa
 matrix:
   allow_failures:
-  - env: TOXENV=py27-django110
-  - env: TOXENV=py34-django110
-  - env: TOXENV=py35-django110
+  - env: TOXENV=py27-djangomaster
+  - env: TOXENV=py35-djangomaster
 install:
 - pip install -U pip
 - pip install tox codecov
