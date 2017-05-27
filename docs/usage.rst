@@ -44,7 +44,7 @@ This will add an add-another button next to the ``sender`` and ``recipients`` fi
 
 Making your ``CreateView`` compatible with django-addanother is as simple as making it inherit the :class:`django_addanother.views.CreatePopupMixin` class::
 
-  from django_addanother.views import AddPopupMixin
+  from django_addanother.views import CreatePopupMixin
 
   class PersonCreate(CreatePopupMixin, CreateView):
       model = Foo
