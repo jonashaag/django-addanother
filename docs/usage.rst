@@ -9,7 +9,7 @@ Wrap :class:`django_addanother.widgets.AddAnotherWidgetWrapper` around your widg
 
 For example, let's say we want to add add-another buttons to a model form::
 
-  from django.core.urlresolvers import reverse_lazy
+  from django.urls import reverse_lazy
   from django_addanother.widgets import AddAnotherWidgetWrapper
   
   class FooForm(forms.ModelForm):
