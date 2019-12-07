@@ -3,7 +3,6 @@ import json
 import django
 from django.contrib.admin.options import IS_POPUP_VAR
 from django.template.response import SimpleTemplateResponse
-import six
 from django.utils.encoding import force_text
 
 
@@ -37,9 +36,9 @@ class BasePopupMixin(object):
     def respond_script(self, created_obj):
         ctx = {
             'action': self.POPUP_ACTION,
-            'value': six.text_type(self._get_created_obj_pk(created_obj)),
-            'obj': six.text_type(self.label_from_instance(created_obj)),
-            'new_value': six.text_type(self._get_created_obj_pk(created_obj))
+            'value': str(self._get_created_obj_pk(created_obj)),
+            'obj': str(self.label_from_instance(created_obj)),
+            'new_value': str(self._get_created_obj_pk(created_obj))
         }
         if django.VERSION >= (1, 10):
             ctx = {'popup_response_data': json.dumps(ctx)}

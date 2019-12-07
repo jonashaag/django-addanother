@@ -11,7 +11,6 @@ setup(
     packages=find_packages(exclude=['test_project']),
     zip_safe=False,
     include_package_data=True,
-    install_requires=['six'],
     url='https://github.com/jonashaag/django-addanother',
     description='"Add another" buttons outside the Django admin',
     classifiers=[
