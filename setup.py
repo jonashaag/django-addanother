@@ -5,12 +5,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_addanother',
-    version='2.0.0',
+    version='2.0.1',
     author='Jonas Haag, James Pic',
     author_email='jonas@lophus.org, jamespic@gmail.com',
     packages=find_packages(exclude=['test_project']),
     zip_safe=False,
     include_package_data=True,
+    install_requires=['six'],
     url='https://github.com/jonashaag/django-addanother',
     description='"Add another" buttons outside the Django admin',
     classifiers=[

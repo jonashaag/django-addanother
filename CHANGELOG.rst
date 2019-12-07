@@ -1,3 +1,7 @@
+2.0.1 (Dec 7, 2019)
+--------------------
+Add Django 3.0 support
+
 2.0.0 (Sep 6, 2016)
 --------------------
 New feature: Edit-related buttons next to add-another buttons, to allow for quick
