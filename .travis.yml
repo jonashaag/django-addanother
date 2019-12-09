@@ -1,5 +1,11 @@
+dist: bionic
 services:
   - xvfb
+addons:
+  firefox: latest
+  apt:
+    packages:
+      firefox-geckodriver
 language: python
 python:
   - "2.7"
