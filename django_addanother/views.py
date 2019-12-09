@@ -1,10 +1,17 @@
 import json
+import sys
 
 import django
 from django.contrib.admin.options import IS_POPUP_VAR
 from django.template.response import SimpleTemplateResponse
-from django.utils import six
 from django.utils.encoding import force_text
+
+
+PY2 = sys.version_info[0] == 2
+
+
+def text_type(value):
+    return unicode(value) if PY2 else str(value)
 
 
 class BasePopupMixin(object):
@@ -37,9 +44,9 @@ class BasePopupMixin(object):
     def respond_script(self, created_obj):
         ctx = {
             'action': self.POPUP_ACTION,
-            'value': six.text_type(self._get_created_obj_pk(created_obj)),
-            'obj': six.text_type(self.label_from_instance(created_obj)),
-            'new_value': six.text_type(self._get_created_obj_pk(created_obj))
+            'value': text_type(self._get_created_obj_pk(created_obj)),
+            'obj': text_type(self.label_from_instance(created_obj)),
+            'new_value': text_type(self._get_created_obj_pk(created_obj))
         }
         if django.VERSION >= (1, 10):
             ctx = {'popup_response_data': json.dumps(ctx)}
