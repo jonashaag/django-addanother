@@ -1,26 +1,30 @@
+dist: bionic
 services:
   - xvfb
+addons:
+  firefox: latest
+  apt:
+    packages:
+      firefox-geckodriver
 language: python
 python:
   - "2.7"
-  - "3.4"
   - "3.5"
   - "3.6"
   - "3.7"
   - "3.8"
 env:
   - DJANGO=django111
-  - DJANGO=django20
-  - DJANGO=django21
-  - DJANGO=django22
+  - DJANGO=django2x
+  - DJANGO=django3x
 jobs:
   exclude:
     - python: "2.7"
-      env: DJANGO=django20
+      env: DJANGO=django2x
     - python: "2.7"
-      env: DJANGO=django21
-    - python: "2.7"
-      env: DJANGO=django22
+      env: DJANGO=django3x
+    - python: "3.5"
+      env: DJANGO=django3x
 before_install:
   - pip install codecov
 install:
