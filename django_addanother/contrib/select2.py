@@ -1,13 +1,5 @@
 import textwrap
 
-try:
-    exec_ = getattr(__builtins__, "exec")
-except AttributeError:
-    # Python 2
-    def exec_(_code_, _globs_, _locs_):
-        exec("""exec _code_ in _globs_, _locs_""")
-
-
 import django_select2.forms  # NOQA
 import django_addanother.widgets  # NOQA
 
@@ -46,7 +38,7 @@ def _gen_classes(globals_, locals_):
                 widget_cls="django_select2.forms.%s" % widget_cls,
                 wrapper_cls="django_addanother.widgets.%s" % wrapper_cls,
             )
-            exec_(code, globals_, locals_)
+            exec(code, globals_, locals_)
             yield new_cls_name
 
 
