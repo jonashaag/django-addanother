@@ -23,6 +23,8 @@ jobs:
       env: DJANGO=django2x
     - python: "2.7"
       env: DJANGO=django3x
+    - python: "3.5"
+      env: DJANGO=django3x
 before_install:
   - pip install codecov
 install:
