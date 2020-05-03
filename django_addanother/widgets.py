@@ -1,3 +1,5 @@
+import copy
+
 import django
 from django import forms
 from django.contrib.admin.views.main import IS_POPUP_VAR
@@ -73,6 +75,11 @@ class BaseRelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
         self.add_icon = add_icon
         self.edit_related_url = edit_related_url
         self.edit_icon = edit_icon
+
+    def __deepcopy__(self, memo):
+        obj = super().__deepcopy__(memo)
+        obj.widget = copy.deepcopy(self.widget)
+        return obj
 
     def render(self, name, value, *args, **kwargs):
         self.widget.choices = self.choices

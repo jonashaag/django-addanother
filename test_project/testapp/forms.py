@@ -15,7 +15,7 @@ class PlayerForm(forms.ModelForm):
         fields = ['name', 'current_team', 'future_team', 'previous_teams']
         widgets = {
             'current_team': AddAnotherWidgetWrapper(
-                forms.Select,
+                forms.Select(),
                 reverse_lazy('add_team'),
             ),
             'future_team': AddAnotherEditSelectedWidgetWrapper(

@@ -2,6 +2,15 @@ import functools
 import pytest
 from django_addanother.contrib import select2 as da_select2
 from testapp.models import Team
+from testapp.forms import PlayerForm
+
+
+@pytest.mark.django_db
+def test_widget_deepcopy():
+    form1 = PlayerForm()
+    form2 = PlayerForm()
+    assert form1.fields['current_team'].widget.widget is not form2.fields['current_team'].widget.widget
+    assert form1.fields['future_team'].widget.widget is not form2.fields['future_team'].widget.widget
 
 
 @pytest.mark.django_db
