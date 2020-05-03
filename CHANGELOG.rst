@@ -1,3 +1,7 @@
+2.0.2 (May 3, 2020)
+-------------------
+Fix shared widget state (e.g., error messages) between multiple forms/widget instances.
+
 2.0.1 (Dec 7, 2019)
 --------------------
 Add Django 3.0 support

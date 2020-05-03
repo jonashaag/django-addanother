@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_addanother',
-    version='2.0.1',
+    version='2.0.2',
     author='Jonas Haag, James Pic',
     author_email='jonas@lophus.org, jamespic@gmail.com',
     packages=find_packages(exclude=['test_project']),
