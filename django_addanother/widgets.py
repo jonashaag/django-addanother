@@ -77,7 +77,7 @@ class BaseRelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
         self.edit_icon = edit_icon
 
     def __deepcopy__(self, memo):
-        obj = super().__deepcopy__(memo)
+        obj = super(BaseRelatedWidgetWrapper, self).__deepcopy__(memo)
         obj.widget = copy.deepcopy(self.widget)
         return obj
 
