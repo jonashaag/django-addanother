@@ -21,13 +21,17 @@ def _gen_classes(globals_, locals_):
         'ModelSelect2TagWidget',
     ]
     cls_template = textwrap.dedent('''
+    class {new_widget_cls}({widget_cls}):
+        def optgroups(self, name, value, attrs=None):
+            ret = super().optgroups(name, value, attrs=attrs)
+            if not self.is_required and not self.allow_multiple_selected:
+                ret = ret[1:]
+            return ret
+
     class {new_cls_name}({wrapper_cls}):
         """:class:`~{widget_cls}` wrapped with :class:`~{wrapper_cls}`."""
         def __init__(self, *args, **kwargs):
-            super({new_cls_name}, self).__init__(
-                {widget_cls},
-                *args, **kwargs
-            )
+            super().__init__({new_widget_cls}, *args, **kwargs)
     ''')
 
     for wrapper_cls in wrapper_classes:
@@ -36,6 +40,7 @@ def _gen_classes(globals_, locals_):
             code = cls_template.format(
                 new_cls_name=new_cls_name,
                 widget_cls="django_select2.forms.%s" % widget_cls,
+                new_widget_cls="Fixed%s" % widget_cls,
                 wrapper_cls="django_addanother.widgets.%s" % wrapper_cls,
             )
             exec(code, globals_, locals_)
@@ -43,3 +48,4 @@ def _gen_classes(globals_, locals_):
 
 
 __all__ = list(_gen_classes(globals(), locals()))
+
