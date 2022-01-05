@@ -22,16 +22,21 @@ def _gen_classes(globals_, locals_):
     ]
     cls_template = textwrap.dedent('''
     class {new_widget_cls}({widget_cls}):
+        """:class:`~{widget_cls}` wrapped to remove empty option duplication."""
+
         def optgroups(self, name, value, attrs=None):
-            ret = super().optgroups(name, value, attrs=attrs)
+            optgroups = super({new_widget_cls}, self).optgroups(
+                self, name, value, attrs=attrs)
             if not self.is_required and not self.allow_multiple_selected:
-                ret = ret[1:]
-            return ret
+                # In this case select2 widget adds one more option. 
+                # We can just drop it now
+                optgroups = optgroups[1:]
+            return optgroups
 
     class {new_cls_name}({wrapper_cls}):
         """:class:`~{widget_cls}` wrapped with :class:`~{wrapper_cls}`."""
         def __init__(self, *args, **kwargs):
-            super().__init__({new_widget_cls}, *args, **kwargs)
+            super({new_cls_name}, self).__init__({new_widget_cls}, *args, **kwargs)
     ''')
 
     for wrapper_cls in wrapper_classes:
