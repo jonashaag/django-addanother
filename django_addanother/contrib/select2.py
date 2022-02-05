@@ -26,7 +26,7 @@ def _gen_classes(globals_, locals_):
 
         def optgroups(self, name, value, attrs=None):
             optgroups = super({new_widget_cls}, self).optgroups(
-                self, name, value, attrs=attrs)
+                name, value, attrs=attrs)
             if not self.is_required and not self.allow_multiple_selected:
                 # In this case select2 widget adds one more option. 
                 # We can just drop it now
