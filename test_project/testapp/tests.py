@@ -1,7 +1,8 @@
 import functools
 import pytest
 from django_addanother.contrib import select2 as da_select2
-from testapp.models import Team
+from django import forms
+from testapp.models import Team, Player
 from testapp.forms import PlayerForm
 
 
@@ -14,24 +15,36 @@ def test_widget_deepcopy():
 
 
 @pytest.mark.django_db
-def test_smoke_select2():
+@pytest.mark.parametrize("widget_cls_name", da_select2.__all__)
+def test_smoke_select2(widget_cls_name):
     """Some basic tests to verify the select2 integration works."""
-    for widget_cls_name in da_select2.__all__:
-        if 'Heavy' in widget_cls_name:
-            # Need extra select2 specific arguments
-            continue
+    if 'Heavy' in widget_cls_name:
+        # Need extra select2 specific arguments
+        return
+    widget_cls = getattr(da_select2, widget_cls_name)
+    if 'AddAnotherEditSelected' in widget_cls_name:
+        widget = widget_cls(add_related_url='x', edit_related_url='x', add_icon='x', edit_icon='x')
+    elif 'AddAnother' in widget_cls_name:
+        widget = widget_cls(add_related_url='x', add_icon='x')
+    else:
+        widget = widget_cls(edit_related_url='x', edit_icon='x')
+    widget.widget.data_url = 'fake-url'
+    widget.widget.queryset = Player.objects.all()
 
-        widget_cls = getattr(da_select2, widget_cls_name)
-        if 'AddAnotherEditSelected' in widget_cls_name:
-            widget_cls(add_related_url='x', edit_related_url='x', add_icon='x', edit_icon='x')
-        elif 'AddAnother' in widget_cls_name:
-            widget_cls(add_related_url='x', add_icon='x')
-        else:
-            widget_cls(edit_related_url='x', edit_icon='x')
+    class TestForm(forms.ModelForm):
+        class Meta:
+            model = Player
+            fields = ['current_team']
+            widgets = {'current_team': widget}
+
+    html = TestForm().as_p()
+
+    # https://github.com/jonashaag/django-addanother/pull/47
+    assert not '<option value="" selected>' in html
 
 
 @pytest.mark.django_db
-def test_empty_select_multiple(session_browser, live_server):
+def test_browser_empty_select_multiple(session_browser, live_server):
     add_team = functools.partial(_add_team, session_browser, 'previous_teams')
     get_value = functools.partial(_get_value, session_browser, 'previous_teams')
     get_value_label = functools.partial(_get_value_label, session_browser, 'previous_teams')
@@ -53,7 +66,7 @@ def test_empty_select_multiple(session_browser, live_server):
 
 
 @pytest.mark.django_db
-def test_empty_foreign_key(session_browser, live_server):
+def test_browser_empty_foreign_key(session_browser, live_server):
     add_team = functools.partial(_add_team, session_browser, 'future_team')
     get_value = functools.partial(_get_value, session_browser, 'future_team')
     get_value_label = functools.partial(_get_value_label, session_browser, 'future_team')

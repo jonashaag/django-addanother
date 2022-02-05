@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        #python-version: ["2.7", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10"]
+        #django-version: ["1.11", "2.0", "2.1", "3.0", "3.1", "4.0"]
+        python-version: ["3.7"]
+        django-version: ["2.1"]
+        test-browser: 'false'
+    env:
+      DJANGO_VERSION: ${{ matrix.django-version }}
+    steps:
+      - run: .github/worksflows/make-requirements.txt.sh > requirements.txt
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - uses: actions/checkout@v2
+      - run: sudo apt-get install -y firefox-geckodriver
+        if: ${{ matrix.test-browser == 'true' }}
+      - run: python -m pytest -vv --cov django_addanother --create-db --strict -r fEsxXw #test_project/testapp/tests.py
+        env:
+          DJANGO_SETTINGS_MODULE: test_project.settings
+
