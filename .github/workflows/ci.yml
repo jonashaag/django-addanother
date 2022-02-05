@@ -19,7 +19,7 @@ jobs:
     env:
       DJANGO_VERSION: ${{ matrix.django-version }}
     steps:
-      - run: .github/worksflows/make-requirements.txt.sh
+      - run: .github/worksflows/make-requirements.txt.sh > requirements.txt
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
