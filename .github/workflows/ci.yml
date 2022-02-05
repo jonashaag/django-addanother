@@ -22,4 +22,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - uses: actions/checkout@v2
-      - DJANGO_SETTINGS_MODULE=test_project.settings py.test -vv --cov django_addanother --create-db --strict -r fEsxXw {posargs:test_project/testapp/tests.py}
+      - run: run_tests.sh
+        shell: bash -x {0}
