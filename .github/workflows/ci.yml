@@ -22,5 +22,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - uses: actions/checkout@v2
-      - run: run_tests.sh
+      - run: ./run_tests.sh
         shell: bash -x {0}
