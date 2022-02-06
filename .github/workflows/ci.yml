@@ -61,7 +61,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install apt deps
         run: sudo apt-get install -y firefox-geckodriver xvfb
-        if: matrix.browser === 'true'
+        if: matrix.browser == 'true'
       - name: Run pytest
         run: |
           select2_exclude=${{ matrix.select2 != 'true' && 'select2' }}
