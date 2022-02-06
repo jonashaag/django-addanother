@@ -50,6 +50,7 @@ jobs:
       - name: Make requirements.txt
         run: .github/workflows/make-requirements.txt.sh > requirements.txt
         env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
           SELECT2: ${{ matrix.select2 }}
           DJANGO_VERSION: ${{ matrix.django-version }}
       - name: Set up Python ${{ matrix.python-version }}
