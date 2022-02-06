@@ -10,39 +10,40 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     strategy:
-      include:
-        - python-version: "2.7"
-          django-version: "1.11"
-          select2: false
-          test-browser: false
-        - python-version: "2.7"
-          django-version: "1.11"
-          select2: true
-          test-browser: true
-        - python-version: "3.5"
-          django-version: "2.0"
-          select2: true
-          test-browser: false
-        - python-version: "3.6"
-          django-version: "2.1"
-          select2: false
-          test-browser: false
-        - python-version: "3.7"
-          django-version: "3.0"
-          select2: true
-          test-browser: true
-        - python-version: "3.8"
-          django-version: "3.1"
-          select2: true
-          test-browser: false
-        - python-version: "3.9"
-          django-version: "4.0"
-          select2: false
-          test-browser: false
-        - python-version: "3.10"
-          django-version: "4.0"
-          select2: true
-          test-browser: true
+      matrix:
+        include:
+          - python-version: "2.7"
+            django-version: "1.11"
+            select2: false
+            test-browser: false
+          - python-version: "2.7"
+            django-version: "1.11"
+            select2: true
+            test-browser: true
+          - python-version: "3.5"
+            django-version: "2.0"
+            select2: true
+            test-browser: false
+          - python-version: "3.6"
+            django-version: "2.1"
+            select2: false
+            test-browser: false
+          - python-version: "3.7"
+            django-version: "3.0"
+            select2: true
+            test-browser: true
+          - python-version: "3.8"
+            django-version: "3.1"
+            select2: true
+            test-browser: false
+          - python-version: "3.9"
+            django-version: "4.0"
+            select2: false
+            test-browser: false
+          - python-version: "3.10"
+            django-version: "4.0"
+            select2: true
+            test-browser: true
     env:
       DJANGO_VERSION: ${{ matrix.django-version }}
     steps:
