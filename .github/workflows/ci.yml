@@ -11,15 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['x']
-        django-version: ['x']
-        select2: ['x']
-        browser: ['x']
-        exclude:
-          - python-version: x
-            django-version: x
-            select2: x
-            browser: x
         include:
           - python-version: "2.7"
             django-version: "1.11"
