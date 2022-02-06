@@ -64,9 +64,9 @@ jobs:
         if: matrix.browser === 'true'
       - name: Run pytest
         run: |
-          select2_exclude=${{ matrix.select2 !== 'true' && 'select2' }}
-          browser_exclude=${{ matrix.browser !== 'true' && 'test_browser' }}
-          runner=${{ matrix.browser === 'true' && 'xvfb-run' }}
+          select2_exclude=${{ matrix.select2 != 'true' && 'select2' }}
+          browser_exclude=${{ matrix.browser != 'true' && 'test_browser' }}
+          runner=${{ matrix.browser == 'true' && 'xvfb-run' }}
           $runner python -m pytest \
             -vv \
             --cov django_addanother \
