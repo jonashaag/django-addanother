@@ -5,9 +5,9 @@ import django
 from django.contrib.admin.options import IS_POPUP_VAR
 from django.template.response import SimpleTemplateResponse
 try:
-     from django.utils.encoding import force_text
- except ImportError:
-     from django.utils.encoding import force_str as force_text
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_str as force_text
 
 
 PY2 = sys.version_info[0] == 2
