@@ -1,7 +1,7 @@
 try:
     from django.conf.urls import url as re_path
 except ImportError:
-    from django.conf.urls import re_path
+    from django.urls import re_path
 from django.contrib import admin
 from testapp.views import CreateTeam, EditTeam, main
 
