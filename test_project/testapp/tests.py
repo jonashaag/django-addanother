@@ -1,6 +1,5 @@
 import functools
 import pytest
-from django_addanother.contrib import select2 as da_select2
 from django import forms
 from testapp.models import Team, Player
 from testapp.forms import PlayerForm
@@ -18,6 +17,7 @@ def test_widget_deepcopy():
 @pytest.mark.parametrize("widget_cls_name", da_select2.__all__)
 def test_smoke_select2(widget_cls_name):
     """Some basic tests to verify the select2 integration works."""
+    from django_addanother.contrib import select2 as da_select2
     if 'Heavy' in widget_cls_name:
         # Need extra select2 specific arguments
         return

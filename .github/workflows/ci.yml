@@ -15,35 +15,35 @@ jobs:
           - python-version: "2.7"
             django-version: "1.11"
             select2: false
-            test-browser: false
+            browser: false
           - python-version: "2.7"
             django-version: "1.11"
             select2: true
-            test-browser: true
+            browser: true
           - python-version: "3.5"
             django-version: "2.0"
             select2: true
-            test-browser: false
+            browser: false
           - python-version: "3.6"
             django-version: "2.1"
             select2: false
-            test-browser: false
+            browser: false
           - python-version: "3.7"
             django-version: "3.0"
             select2: true
-            test-browser: true
+            browser: true
           - python-version: "3.8"
             django-version: "3.1"
             select2: true
-            test-browser: false
+            browser: false
           - python-version: "3.9"
             django-version: "4.0"
             select2: false
-            test-browser: false
+            browser: false
           - python-version: "3.10"
             django-version: "4.0"
             select2: true
-            test-browser: true
+            browser: true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -61,16 +61,16 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install apt deps
         run: sudo apt-get install -y firefox-geckodriver xvfb
-        if: matrix.test-browser == 'true'
+        if: matrix.browser == 'true'
       - name: Run pytest
         run: |
-          ${{ matrix.test-browser == 'true' && 'xvfb-run --auto-servernum' || '' }} \
+          ${{ matrix.browser == 'true' && 'xvfb-run --auto-servernum' || '' }} \
           python -m pytest \
             -vv \
             --cov django_addanother \
             --create-db \
-            ${{ matrix.test-browser == 'true' && '' || '-k "not test_browser"' }} \
-            test_project/testapp/tests.py
+          ${{ {[[true, true]]: '', [[true, false]]: '-k "not test_browser"', [[false, true]]: '-k "not select2"', [[false, false]]: '-k "not select2 and not test_browser"'}[${{ matrix.select2, matrix.browser }}] }} \
+          test_project/testapp/tests.py
         env:
           DJANGO_SETTINGS_MODULE: test_project.settings
 
