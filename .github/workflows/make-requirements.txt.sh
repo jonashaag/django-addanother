@@ -16,6 +16,6 @@ else echo "Unknown Django version $DJANGO_VERSION"; exit 1
 fi
 
 DEPS="$(echo $DEPS | tr ' ' '\n')"
-if [ ! $SELECT2 = true ]; then DEPS="$($(echo "$DEPS") | grep -v select2)"; fi
-if [ ! $BROWSER = true ]; then DEPS="$($(echo "$DEPS") | grep -v splinter)"; fi
+if [ ! $SELECT2 = true ]; then DEPS="$(echo "$DEPS" | grep -v select2)"; fi
+if [ ! $BROWSER = true ]; then DEPS="$(echo "$DEPS" | grep -v splinter)"; fi
 echo "$DEPS"
