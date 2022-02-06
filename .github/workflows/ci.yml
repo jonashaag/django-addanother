@@ -64,14 +64,14 @@ jobs:
         if: matrix.browser === 'true'
       - name: Run pytest
         run: |
-          ${{ matrix.browser !== 'true' && 'k="not test_browser"' }}
-          ${{ matrix.select2 !== 'true' && 'k="$k and not select2"' }}
-          ${{ matrix.browser === 'true' && 'xvfb-run --auto-servernum' || '' }} \
-          python -m pytest \
+          select2_exclude=${{ matrix.select2 !== 'true' && 'select2' }}
+          browser_exclude=${{ matrix.browser !== 'true' && 'test_browser' }}
+          runner=${{ matrix.browser === 'true' && 'xvfb-run' }}
+          $runner python -m pytest \
             -vv \
             --cov django_addanother \
             --create-db \
-            -k "$k" \
+            -k "not ${select2_exclude:-____} and not ${browser_exclude:-____}" \
             test_project/testapp/tests.py
         env:
           DJANGO_SETTINGS_MODULE: test_project.settings
