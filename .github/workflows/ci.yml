@@ -34,7 +34,13 @@ jobs:
         run: sudo apt-get install -y firefox-geckodriver
         if: ${{ matrix.test-browser == 'true' }}
       - name: Run pytest
-        run: python -m pytest -vv --cov django_addanother --create-db --strict -r fEsxXw test_project/testapp/tests.py
+        run: |
+          python -m pytest \
+            -vv \
+            --cov django_addanother \
+            --create-db \
+            ${{ matrix.test-browser == 'true' && '-k "not test_browser"' || ''}} \
+            test_project/testapp/tests.py
         env:
           DJANGO_SETTINGS_MODULE: test_project.settings
 
