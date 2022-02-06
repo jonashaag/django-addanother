@@ -19,16 +19,22 @@ jobs:
     env:
       DJANGO_VERSION: ${{ matrix.django-version }}
     steps:
-      - uses: actions/checkout@v2
-      - run: .github/workflows/make-requirements.txt.sh > requirements.txt
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Make requirements.txt
+        run: .github/workflows/make-requirements.txt.sh > requirements.txt
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - run: sudo apt-get install -y firefox-geckodriver
+      - name: Instal pip deps
+        run: pip install -r requirements.txt
+      - name: Install apt deps
+        run: sudo apt-get install -y firefox-geckodriver
         if: ${{ matrix.test-browser == 'true' }}
-      - run: python -m pytest -vv --cov django_addanother --create-db --strict -r fEsxXw #test_project/testapp/tests.py
+      - name: Run pytest
+        run: python -m pytest -vv --cov django_addanother --create-db --strict -r fEsxXw #test_project/testapp/tests.py
         env:
           DJANGO_SETTINGS_MODULE: test_project.settings
 
