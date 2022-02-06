@@ -1,21 +1,11 @@
 #!/bin/bash -eu
 
-DEPS=$(cat <<EOF
-wheel
-
-django
-django-appconf
-django-select2
-
-pytest
-pytest-django
-pytest-cov
-pytest-splinter
-EOF
-)
+DEPS="wheel pytest pytest-django pytest-cov"
 
 if python --version | grep -q "Python 2.7"; then
   DEPS="$DEPS django-appconf<=1.0 pytest-splinter<3"
+else
+  DEPS="$DEPS django-appconf pytest-splinter"
 fi
 
 if   [ $DJANGO_VERSION = 1.11 ]; then DEPS="$DEPS django>=1.11,<2   django-select2<7"
