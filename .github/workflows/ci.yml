@@ -1,0 +1,80 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - python-version: "2.7"
+            django-version: "1.11"
+            select2: false
+            browser: false
+          - python-version: "2.7"
+            django-version: "1.11"
+            select2: true
+            browser: true
+          - python-version: "3.5"
+            django-version: "2.0"
+            select2: true
+            browser: false
+          - python-version: "3.6"
+            django-version: "2.1"
+            select2: false
+            browser: false
+          - python-version: "3.7"
+            django-version: "3.0"
+            select2: true
+            browser: true
+          - python-version: "3.8"
+            django-version: "3.1"
+            select2: true
+            browser: false
+          - python-version: "3.9"
+            django-version: "4.0"
+            select2: false
+            browser: false
+          - python-version: "3.10"
+            django-version: "4.0"
+            select2: true
+            browser: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Make requirements.txt
+        run: |
+          .github/workflows/make-requirements.txt.sh | tee requirements.txt
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+          DJANGO_VERSION: ${{ matrix.django-version }}
+          SELECT2: ${{ matrix.select2 }}
+          BROWSER: ${{ matrix.browser }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install pip deps
+        run: pip install --upgrade -r requirements.txt
+      - name: Install apt deps
+        run: sudo apt-get install -y firefox-geckodriver xvfb
+        if: matrix.browser == true
+      - name: Run pytest
+        run: |
+          select2_exclude=${{ matrix.select2 != true && 'select2' || '' }}
+          browser_exclude=${{ matrix.browser != true && 'test_browser' || '' }}
+          runner=${{ matrix.browser == true && 'xvfb-run' || '' }}
+          $runner python -m pytest \
+            -vv \
+            --cov django_addanother \
+            --create-db \
+            -k "not ${select2_exclude:-____} and not ${browser_exclude:-____}" \
+            test_project/testapp/tests.py
+        env:
+          DJANGO_SETTINGS_MODULE: test_project.settings
