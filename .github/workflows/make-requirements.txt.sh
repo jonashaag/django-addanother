@@ -1,6 +1,17 @@
 #!/bin/bash -eu
 
-DEPS="wheel pytest pytest-django pytest-cov"
+DEPS=cat <<EOF
+wheel
+
+django
+django-appconf
+django-select2
+
+pytest
+pytest-django
+pytest-cov
+pytest-splinter
+EOF
 
 if python --version | grep -q "Python 2.7"; then
   DEPS="$DEPS django-appconf<=1.0 pytest-splinter<3"
@@ -16,6 +27,6 @@ else echo "Unknown Django version $DJANGO_VERSION"; exit 1
 fi
 
 DEPS="$(echo $DEPS | tr ' ' '\n')"
-if ! [ $SELECT2 = true ]; then DEPS="$(echo "$DEPS" | grep -v select2)"; fi
-if ! [ $BROWSER = true ]; then DEPS="$(echo "$DEPS" | grep -v splinter)"; fi
+if [ ! $SELECT2 = true ]; then DEPS="$(echo "$DEPS" | grep -v select2)"; fi
+if [ ! $BROWSER = true ]; then DEPS="$(echo "$DEPS" | grep -v splinter)"; fi
 echo "$DEPS"
