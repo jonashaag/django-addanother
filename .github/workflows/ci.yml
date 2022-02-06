@@ -44,8 +44,6 @@ jobs:
             django-version: "4.0"
             select2: true
             test-browser: true
-    env:
-      DJANGO_VERSION: ${{ matrix.django-version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -56,14 +54,17 @@ jobs:
           cache: pip
       - name: Instal pip deps
         run: |
-          SELECT2=${{ matrix.select2 }} .github/workflows/make-requirements.txt.sh > requirements.txt
+           .github/workflows/make-requirements.txt.sh > requirements.txt
           pip install -r requirements.txt
+        env:
+          SELECT2: ${{ matrix.select2 }}
+          DJANGO_VERSION: ${{ matrix.django-version }}
       - name: Install apt deps
         run: sudo apt-get install -y firefox-geckodriver xvfb
-        if: ${{ matrix.test-browser == 'true' }}
+        if: matrix.test-browser == 'true'
       - name: Run pytest
         run: |
-          ${{ matrix.test-browser == 'true' && 'xvfb-run --auto-servernum' || ''} \
+          ${{ matrix.test-browser == 'true' && 'xvfb-run --auto-servernum' || '' }} \
           python -m pytest \
             -vv \
             --cov django_addanother \
