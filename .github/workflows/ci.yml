@@ -39,7 +39,7 @@ jobs:
             -vv \
             --cov django_addanother \
             --create-db \
-            ${{ matrix.test-browser == 'true' && '-k "not test_browser"' || ''}} \
+            ${{ matrix.test-browser == 'true' && '' || '-k "not test_browser"' }} \
             test_project/testapp/tests.py
         env:
           DJANGO_SETTINGS_MODULE: test_project.settings
