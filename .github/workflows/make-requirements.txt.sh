@@ -2,10 +2,8 @@
 
 DEPS="wheel pytest pytest-django pytest-cov"
 
-if [ $PYTHON_VERSION = 2.7 ]; then
-  DEPS="$DEPS django-appconf<=1.0 pytest-splinter<3 splinter<0.17"
-else
-  DEPS="$DEPS pytest-splinter"
+if python --version | grep -q "Python 2.7"; then
+  DEPS="$DEPS django-appconf<=1.0 pytest-splinter<3"
 fi
 
 if   [ $DJANGO_VERSION = 1.11 ]; then DEPS="$DEPS django>=1.11,<2   django-select2<7"
@@ -18,8 +16,6 @@ else echo "Unknown Django version $DJANGO_VERSION"; exit 1
 fi
 
 DEPS="$(echo $DEPS | tr ' ' '\n')"
-if [ $SELECT2 = true ]; then
-  echo "$DEPS"
-else
-  echo "$DEPS" | grep -v select2
-fi
+if [ ! $SELECT2 = true ]; then DEPS="$($(echo "$DEPS") | grep -v select2)"; fi
+if [ ! $BROWSER = true ]; then DEPS="$($(echo "$DEPS") | grep -v splinter)"; fi
+echo "$DEPS"
