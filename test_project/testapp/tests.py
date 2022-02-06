@@ -5,6 +5,12 @@ from testapp.models import Team, Player
 from testapp.forms import PlayerForm
 
 
+def test_import():
+    import django_addanother.widgets
+    import django_addanother.views
+    import django_addanother.contrib
+
+
 @pytest.mark.django_db
 def test_widget_deepcopy():
     form1 = PlayerForm()
