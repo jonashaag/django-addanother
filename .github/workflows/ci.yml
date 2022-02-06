@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        python-version: []
+        django-version: []
+        select2: []
+        browser: []
         include:
           - python-version: "2.7"
             django-version: "1.11"
@@ -48,7 +52,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Make requirements.txt
-        run: .github/workflows/make-requirements.txt.sh > requirements.txt
+        run: |
+          .github/workflows/make-requirements.txt.sh | tee requirements.txt
         env:
           PYTHON_VERSION: ${{ matrix.python-version }}
           SELECT2: ${{ matrix.select2 }}
@@ -76,4 +81,3 @@ jobs:
             test_project/testapp/tests.py
         env:
           DJANGO_SETTINGS_MODULE: test_project.settings
-
