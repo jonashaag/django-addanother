@@ -2,7 +2,7 @@
 
 DEPS="wheel pytest pytest-django pytest-cov"
 
-if python --version | grep -q "Python 2.7"; then
+if [ $PYTHON_VERSION = 2.7 ]; then
   DEPS="$DEPS django-appconf<=1.0 pytest-splinter<3 splinter<0.17"
 else
   DEPS="$DEPS django-appconf pytest-splinter"
