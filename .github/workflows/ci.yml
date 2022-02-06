@@ -36,5 +36,6 @@ jobs:
       - name: Run pytest
         run: python -m pytest -vv --cov django_addanother --create-db --strict -r fEsxXw #test_project/testapp/tests.py
         env:
+          PYTHONPATH: test_project
           DJANGO_SETTINGS_MODULE: test_project.settings
 
