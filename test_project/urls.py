@@ -6,8 +6,8 @@ from django.contrib import admin
 from testapp.views import CreateTeam, EditTeam, main
 
 urlpatterns = [
-    path(r'^admin/', admin.site.urls),
-    path(r'^team/add/$', CreateTeam.as_view(), name='add_team'),
-    path(r'^team/edit/(?P<pk>.*)/$', EditTeam.as_view(), name='edit_team'),
-    path(r'^$', main, name='main'),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^team/add/$', CreateTeam.as_view(), name='add_team'),
+    re_path(r'^team/edit/(?P<pk>.*)/$', EditTeam.as_view(), name='edit_team'),
+    re_path(r'^$', main, name='main'),
 ]
