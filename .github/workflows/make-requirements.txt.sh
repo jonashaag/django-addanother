@@ -15,4 +15,9 @@ elif [ $DJANGO_VERSION = 4.0  ]; then DEPS="$DEPS django>=4,<5      django-selec
 else echo "Unknown Django version $DJANGO_VERSION"; exit 1
 fi
 
-echo $DEPS | tr ' ' '\n'
+DEPS="$(echo $DEPS | tr ' ' '\n')"
+if [ $SELECT2 = true ]; then
+  echo "$DEPS"
+else
+  echo "$DEPS" | grep -v select2
+fi
