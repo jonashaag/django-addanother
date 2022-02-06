@@ -14,33 +14,33 @@ def test_widget_deepcopy():
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("widget_cls_name", da_select2.__all__)
-def test_smoke_select2(widget_cls_name):
+def test_smoke_select2():
     """Some basic tests to verify the select2 integration works."""
     from django_addanother.contrib import select2 as da_select2
-    if 'Heavy' in widget_cls_name:
-        # Need extra select2 specific arguments
-        return
-    widget_cls = getattr(da_select2, widget_cls_name)
-    if 'AddAnotherEditSelected' in widget_cls_name:
-        widget = widget_cls(add_related_url='x', edit_related_url='x', add_icon='x', edit_icon='x')
-    elif 'AddAnother' in widget_cls_name:
-        widget = widget_cls(add_related_url='x', add_icon='x')
-    else:
-        widget = widget_cls(edit_related_url='x', edit_icon='x')
-    widget.widget.data_url = 'fake-url'
-    widget.widget.queryset = Player.objects.all()
+    for widget_cls_name in da_select2.__all__:
+        if 'Heavy' in widget_cls_name:
+            # Need extra select2 specific arguments
+            continue
+        widget_cls = getattr(da_select2, widget_cls_name)
+        if 'AddAnotherEditSelected' in widget_cls_name:
+            widget = widget_cls(add_related_url='x', edit_related_url='x', add_icon='x', edit_icon='x')
+        elif 'AddAnother' in widget_cls_name:
+            widget = widget_cls(add_related_url='x', add_icon='x')
+        else:
+            widget = widget_cls(edit_related_url='x', edit_icon='x')
+        widget.widget.data_url = 'fake-url'
+        widget.widget.queryset = Player.objects.all()
 
-    class TestForm(forms.ModelForm):
-        class Meta:
-            model = Player
-            fields = ['current_team']
-            widgets = {'current_team': widget}
+        class TestForm(forms.ModelForm):
+            class Meta:
+                model = Player
+                fields = ['current_team']
+                widgets = {'current_team': widget}
 
-    html = TestForm().as_p()
+        html = TestForm().as_p()
 
-    # https://github.com/jonashaag/django-addanother/pull/47
-    assert not '<option value="" selected>' in html
+        # https://github.com/jonashaag/django-addanother/pull/47
+        assert not '<option value="" selected>' in html
 
 
 @pytest.mark.django_db
