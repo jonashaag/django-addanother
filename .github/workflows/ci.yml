@@ -61,16 +61,18 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install apt deps
         run: sudo apt-get install -y firefox-geckodriver xvfb
-        if: matrix.browser == 'true'
+        if: matrix.browser === 'true'
       - name: Run pytest
         run: |
-          ${{ matrix.browser == 'true' && 'xvfb-run --auto-servernum' || '' }} \
+          ${{ matrix.browser !== 'true' && 'k="not test_browser"' }}
+          ${{ matrix.select2 !== 'true' && 'k="$k and not select2"' }}
+          ${{ matrix.browser === 'true' && 'xvfb-run --auto-servernum' || '' }} \
           python -m pytest \
             -vv \
             --cov django_addanother \
             --create-db \
-          ${{ {[[true, true]]: '', [[true, false]]: '-k "not test_browser"', [[false, true]]: '-k "not select2"', [[false, false]]: '-k "not select2 and not test_browser"'}[${{ matrix.select2, matrix.browser }}] }} \
-          test_project/testapp/tests.py
+            -k "$k" \
+            test_project/testapp/tests.py
         env:
           DJANGO_SETTINGS_MODULE: test_project.settings
 
