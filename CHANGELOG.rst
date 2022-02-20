@@ -1,3 +1,9 @@
+2.1.0 (Feb 20, 2022)
+--------------------
+Update to Django 4.
+
+Remove empty label duplicates with select2.
+
 2.0.2 (May 3, 2020)
 -------------------
 Fix shared widget state (e.g., error messages) between multiple forms/widget instances.

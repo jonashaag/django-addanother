@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django_addanother',
-    version='2.0.2',
+    version='2.1.0',
     author='Jonas Haag, James Pic',
     author_email='jonas@lophus.org, jamespic@gmail.com',
     packages=find_packages(exclude=['test_project']),
@@ -18,7 +18,11 @@ setup(
         "License :: OSI Approved :: ISC License (ISCL)",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ]
 )
