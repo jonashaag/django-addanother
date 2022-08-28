@@ -5,7 +5,7 @@ DEPS="wheel pytest pytest-django pytest-cov"
 if [ $PYTHON_VERSION = 2.7 ]; then
   DEPS="$DEPS django-appconf<=1.0 pytest-splinter<3 splinter<0.17"
 else
-  DEPS="$DEPS django-appconf pytest-splinter"
+  DEPS="$DEPS django-appconf pytest-splinter splinter<0.18.1"  # TODO: Remove splinter pin https://github.com/pytest-dev/pytest-splinter/commit/0f9cae60055399bff9e3f3ce2c039d9c38f28e21
 fi
 
 if   [ $DJANGO_VERSION = 1.11 ]; then DEPS="$DEPS django>=1.11,<2   django-select2<7"
