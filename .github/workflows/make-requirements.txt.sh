@@ -13,7 +13,8 @@ elif [ $DJANGO_VERSION = 2.0  ]; then DEPS="$DEPS django>=2.0,<2.1  django-selec
 elif [ $DJANGO_VERSION = 2.1  ]; then DEPS="$DEPS django>=2.1,<3    django-select2<7.2"
 elif [ $DJANGO_VERSION = 3.0  ]; then DEPS="$DEPS django>=3.0,<3.1  django-select2<7.5"
 elif [ $DJANGO_VERSION = 3.1  ]; then DEPS="$DEPS django>=3.1,<4    django-select2"
-elif [ $DJANGO_VERSION = 4.0  ]; then DEPS="$DEPS django>=4,<5      django-select2"
+elif [ $DJANGO_VERSION = 4.0  ]; then DEPS="$DEPS django>=4.0,<4.1  django-select2"
+elif [ $DJANGO_VERSION = 4.1  ]; then DEPS="$DEPS django>=4.1,<5    django-select2"
 else echo "Unknown Django version $DJANGO_VERSION"; exit 1
 fi
 
