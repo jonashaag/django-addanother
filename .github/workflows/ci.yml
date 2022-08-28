@@ -44,7 +44,7 @@ jobs:
             django-version: "4.0"
             select2: true
             browser: true
-          - python-version: "3.11"
+          - python-version: "3.11.0-rc.1"
             django-version: "4.1"
             select2: true
             browser: true
