@@ -67,7 +67,7 @@ jobs:
       - name: Install pip deps
         run: pip install --upgrade -r requirements.txt
       - name: Install apt deps
-        run: sudo apt-get install -y firefox-geckodriver xvfb
+        run: sudo apt-get update && sudo apt-get install -y firefox-geckodriver xvfb
         if: matrix.browser == true
       - name: Run pytest
         run: |
