@@ -44,6 +44,10 @@ jobs:
             django-version: "4.0"
             select2: true
             browser: true
+          - python-version: "3.11"
+            django-version: "4.1"
+            select2: true
+            browser: true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
