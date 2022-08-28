@@ -44,9 +44,13 @@ jobs:
             django-version: "4.0"
             select2: true
             browser: true
+          - python-version: "3.11.0-rc.1"
+            django-version: "4.1"
+            select2: true
+            browser: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Make requirements.txt
         run: |
           .github/workflows/make-requirements.txt.sh | tee requirements.txt
@@ -56,14 +60,14 @@ jobs:
           SELECT2: ${{ matrix.select2 }}
           BROWSER: ${{ matrix.browser }}
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - name: Install pip deps
         run: pip install --upgrade -r requirements.txt
       - name: Install apt deps
-        run: sudo apt-get install -y firefox-geckodriver xvfb
+        run: sudo apt-get update && sudo apt-get install -y firefox-geckodriver xvfb
         if: matrix.browser == true
       - name: Run pytest
         run: |
